@@ -28,7 +28,7 @@ def open_interface_vendas():
         height=40,
         font=ctk.CTkFont(size=16, family="Arial Bold"),
         fg_color="#FFA500",
-        text_color="black"
+        text_color="white"
     )
     campo_codebar.place(relx=0.6, rely=0.75)
 
@@ -39,7 +39,7 @@ def open_interface_vendas():
         height=40,
         font=ctk.CTkFont(size=16, family="Arial Bold"),
         fg_color="#FFA500",
-        text_color="black"
+        text_color="white"
     )
     campo_quant.place(relx=0.6, rely=0.85)
 
