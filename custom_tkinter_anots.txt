@@ -1,0 +1,26 @@
+PySimpleGUI Theme: DarkBlue14
+
+Seu Jorge's
+
+tamanho interface padrão: 1000 x 1000
+
+estranho o modo que o y e x da tela se comporta:
+_________________________________
+|            y                  |
+|           (0)                 |
+|            |                  |
+|            |                  |
+|            |                  |
+| x(0)-------|---------(1)>     |
+|            |                  |
+|            |                  |
+|           (1)                 |
+|            V                  |
+|_______________________________|
+
+
+Fundo dourado (#FFD700)
+
+Botões laranja (#FFA500) com texto branco
+
+Fonte moderna (Arial Bold) para manter a estética
