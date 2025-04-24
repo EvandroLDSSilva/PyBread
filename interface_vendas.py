@@ -60,10 +60,10 @@ def open_interface_vendas():
         if codigo in cod_produtos:
             info = cod_produtos[codigo]
             try:
-                quant_formatado = quant.replace(',', '.')  # Substitui vírgula por ponto
-                quant_float = float(quant_formatado)  # Converte para float
+                quant_formatado = quant.replace(',', '.')
+                quant_float = float(quant_formatado)
             except ValueError:
-                quant_float = 1  # Se houver erro, define quantidade padrão como 1
+                quant_float = 1
 
             preco_str = str(info['preco']).replace(',', '.')
             preco_decimal = Decimal(preco_str)
