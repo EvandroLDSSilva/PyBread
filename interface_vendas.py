@@ -71,7 +71,7 @@ def open_interface_vendas():
             total = total.quantize(Decimal('0.01'), rounding=ROUND_UP)
             total_str = format(total, '.2f').replace('.', ',')
 
-            total_valor += total  # Atualiza o total acumulado
+            total_valor += total
             total_label.configure(text=f"Total: R$ {format(total_valor, '.2f').replace('.', ',')}")
 
             box_texto.insert("end", f"Nome: {info['nome']}\n")
