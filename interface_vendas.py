@@ -16,7 +16,7 @@ def open_interface_vendas():
     total_label = ctk.CTkLabel(
         tela_vendas,
         text="Total: R$ 0,00",
-        text_color="white",
+        text_color="black",
         font=ctk.CTkFont(size=20, family="Arial Bold")
     )
     total_label.place(relx=0.35, rely=0.65)
