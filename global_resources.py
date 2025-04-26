@@ -18,7 +18,7 @@ def resolucao_tela_monitor():
     largura_monitor = tela_monitor.winfo_screenwidth()
     altura_monitor = tela_monitor.winfo_screenheight()
     tela_monitor.destroy()
-    return f"{largura_monitor - 100}x{altura_monitor - 250}+10+30"
+    return f"{largura_monitor - 100}x{altura_monitor - 300}+10+30"
 
 def safe_destroy(widget):
     try:
