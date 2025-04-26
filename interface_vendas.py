@@ -9,7 +9,7 @@ def open_interface_vendas():
     tela_vendas = ctk.CTk()
     tela_vendas.title('Tela de Vendas')
     tela_vendas.geometry(resolucao_tela_monitor())
-    tela_vendas.configure(fg_color=cor_principal_cinza_esc())
+    tela_vendas.configure(fg_color=cor_principal_cinza_claro())
 
     total_valor = Decimal("0.00")
 
@@ -22,32 +22,32 @@ def open_interface_vendas():
     total_label.place(relx=0.35, rely=0.65)
 
     campo_codebar = ctk.CTkEntry(
-        tela_vendas, 
-        placeholder_text='Digite o código de barras: ', 
-        width=300, 
+        tela_vendas,
+        placeholder_text='Digite o código de barras: ',
+        width=300,
         height=40,
         font=ctk.CTkFont(size=16, family="Arial Bold"),
-        fg_color=cor_secundaria_salm(),
+        fg_color=cor_secundaria_ard(),
         text_color="white"
     )
     campo_codebar.place(relx=0.6, rely=0.75)
 
     campo_quant = ctk.CTkEntry(
-        tela_vendas, 
-        placeholder_text='Digite a quantidade', 
-        width=300, 
+        tela_vendas,
+        placeholder_text='Digite a quantidade',
+        width=300,
         height=40,
         font=ctk.CTkFont(size=16, family="Arial Bold"),
-        fg_color=cor_secundaria_salm(),
+        fg_color=cor_secundaria_ard(),
         text_color="white"
     )
     campo_quant.place(relx=0.6, rely=0.85)
 
     box_texto = ctk.CTkTextbox(
-        tela_vendas, 
-        width=350, 
-        height=350, 
-        fg_color=cor_terciaria_tomat(),
+        tela_vendas,
+        width=350,
+        height=350,
+        fg_color=cor_terciaria_cnzesc(),
         text_color="black"
     )
     box_texto.place(relx=0.35, rely=0.70)
@@ -57,6 +57,7 @@ def open_interface_vendas():
         codigo = campo_codebar.get()
         quant = campo_quant.get()
         box_texto.configure(state="normal")
+
         if codigo in cod_produtos:
             info = cod_produtos[codigo]
             try:
@@ -82,13 +83,16 @@ def open_interface_vendas():
         else:
             box_texto.insert("end", f"Código {codigo} não encontrado.\n")
             box_texto.insert("end", "-" * 20 + "\n")
+
         box_texto.configure(state="disabled")
         campo_codebar.delete(0, "end")
         campo_quant.delete(0, "end")
 
     campo_codebar.bind("<Return>", show_info)
     campo_quant.bind("<Return>", show_info)
+
     tela_vendas.protocol("WM_DELETE_WINDOW", lambda: safe_destroy(tela_vendas))
     tela_vendas.bind("<q>", lambda event: safe_destroy(tela_vendas))
     tela_vendas.mainloop()
+
     #sqlite
