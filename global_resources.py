@@ -3,6 +3,16 @@ import ctypes
 from ctypes import wintypes
 
 ctypes.windll.user32.SetProcessDPIAware()
+def cor_principal_cinza_esc():
+    return "#f5f5f5" #Cinza escuro
+
+def cor_secundaria_salm():
+    return "#7b68ee" #Cor Salmão Azul
+
+def cor_terciaria_tomat():
+    return "#73808d" #Cor Tomate(vermelho levemente claro)
+
+
 
 def resolucao_tela_monitor():
     tela_monitor = ctk.CTk()
@@ -31,7 +41,7 @@ def safe_destroy(widget):
 def valid_login(campo_usuario, campo_senha, result_login, security, open_interface_principal):
     usuario = campo_usuario.get()
     senha = campo_senha.get()
-    if (usuario == 'jorge' and senha == '123456') or (usuario == '' and senha == ''):
+    if (usuario == 'jorge' and senha == '123456') or (usuario == 'adm' and senha == '2335'):
         result_login.configure(text='Login Concluido \n Bem Vindo :D', text_color='green')
         
         security.after(300, lambda: safe_destroy(security), open_interface_principal())

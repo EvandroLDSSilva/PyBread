@@ -9,25 +9,25 @@ def open_interface_vendas():
     tela_vendas = ctk.CTk()
     tela_vendas.title('Tela de Vendas')
     tela_vendas.geometry(resolucao_tela_monitor())
-    tela_vendas.configure(fg_color="#FFD700")
+    tela_vendas.configure(fg_color=cor_principal_cinza_esc())
 
     total_valor = Decimal("0.00")
 
     total_label = ctk.CTkLabel(
         tela_vendas,
         text="Total: R$ 0,00",
-        text_color="black",
+        text_color="white",
         font=ctk.CTkFont(size=20, family="Arial Bold")
     )
     total_label.place(relx=0.35, rely=0.65)
 
     campo_codebar = ctk.CTkEntry(
         tela_vendas, 
-        placeholder_text='Digite o código de barras', 
+        placeholder_text='Digite o código de barras: ', 
         width=300, 
         height=40,
         font=ctk.CTkFont(size=16, family="Arial Bold"),
-        fg_color="#FFA500",
+        fg_color=cor_secundaria_salm(),
         text_color="white"
     )
     campo_codebar.place(relx=0.6, rely=0.75)
@@ -38,7 +38,7 @@ def open_interface_vendas():
         width=300, 
         height=40,
         font=ctk.CTkFont(size=16, family="Arial Bold"),
-        fg_color="#FFA500",
+        fg_color=cor_secundaria_salm(),
         text_color="white"
     )
     campo_quant.place(relx=0.6, rely=0.85)
@@ -47,7 +47,7 @@ def open_interface_vendas():
         tela_vendas, 
         width=350, 
         height=350, 
-        fg_color="#FFA500",
+        fg_color=cor_terciaria_tomat(),
         text_color="black"
     )
     box_texto.place(relx=0.35, rely=0.70)

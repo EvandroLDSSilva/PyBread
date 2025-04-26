@@ -10,12 +10,12 @@ def open_interface_principal():
     tela_principal = ctk.CTk()
     tela_principal.title('Bem-vindo!')
     tela_principal.geometry(resolucao_tela_monitor())
-    tela_principal.configure(fg_color="#FFD700") 
+    tela_principal.configure(fg_color=cor_principal_cinza_esc()) 
 
     label_boas_vindas = ctk.CTkLabel(
         tela_principal,
         text='Bem-vindo à tela principal!',
-        text_color='black',
+        text_color='white',
         font=ctk.CTkFont(size=22, family="Arial Bold")
     )
     label_boas_vindas.pack(padx=50, pady=20)
@@ -27,10 +27,10 @@ def open_interface_principal():
         width=100,
         height=100,
         font=ctk.CTkFont(size=18, family="Arial Bold"),
-        fg_color="#FFA500",
+        fg_color=cor_secundaria_salm(),
         text_color="white"
     )
-    btm_f_area_vendas.place(relx=0.45, rely=0.30)
+    btm_f_area_vendas.place(relx=0.40, rely=0.30)
 
     btm_f_cPlanilha = ctk.CTkButton(
         tela_principal,
@@ -39,7 +39,7 @@ def open_interface_principal():
         width=100,
         height=100,
         font=ctk.CTkFont(size=18, family="Arial Bold"),
-        fg_color="#FFA500",
+        fg_color=cor_secundaria_salm(),
         text_color="white"
     )
     btm_f_cPlanilha.place(relx=0.55, rely=0.30)
