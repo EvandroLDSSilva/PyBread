@@ -94,5 +94,3 @@ def open_interface_vendas():
     tela_vendas.protocol("WM_DELETE_WINDOW", lambda: safe_destroy(tela_vendas))
     tela_vendas.bind("<q>", lambda event: safe_destroy(tela_vendas))
     tela_vendas.mainloop()
-
-    #sqlite
