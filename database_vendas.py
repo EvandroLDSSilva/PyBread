@@ -3,7 +3,7 @@ from sqlalchemy.orm import sessionmaker, declarative_base
 
 from global_resources import *
 
-db = create_engine("sqlite:///database_vendas.db")
+db = create_engine("sqlite:///db_database_vendas.db")
 Session = sessionmaker(bind=db)
 session = Session()
 
@@ -31,9 +31,9 @@ Base.metadata.create_all(bind=db)
 # CRUD
 
 # C - Create
-produto = Produto(nome_produto="Pão Frances", cod_produto=7890, preco_venda=0.50, preco_compra=0.30)
-session.add(produto)
-session.commit()
+#produto = Produto(nome_produto="Pão Hamburguer pc", cod_produto=7891, preco_venda=7.50, preco_compra=5.50)
+#session.add(produto)
+#session.commit()
 
 # R - READ
 # lista_produtos = session.query(Produto).all()

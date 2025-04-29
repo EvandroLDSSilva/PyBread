@@ -2,7 +2,8 @@ import customtkinter as ctk
 import ctypes
 from decimal import Decimal, ROUND_UP
 from sqlalchemy.orm import sessionmaker
-from database import Produto, db  # Importa a classe Produto e conexão com o banco
+from database_vendas import Produto, db
+from global_resources import *
 
 ctypes.windll.user32.SetProcessDPIAware()
 
@@ -13,8 +14,8 @@ session = Session()
 def open_interface_vendas():
     tela_vendas = ctk.CTk()
     tela_vendas.title('Tela de Vendas')
-    tela_vendas.geometry("800x600")
-    tela_vendas.configure(fg_color="#DDDDDD")
+    tela_vendas.geometry(resolucao_tela_monitor())
+    tela_vendas.configure(fg_color=cor_principal_cinza_claro())
 
     total_valor = Decimal("0.00")
 
@@ -32,7 +33,8 @@ def open_interface_vendas():
         width=300,
         height=40,
         font=ctk.CTkFont(size=16, family="Arial Bold"),
-        text_color="black"
+        fg_color=cor_secundaria_ard(),
+        text_color="white"
     )
     campo_codebar.place(relx=0.6, rely=0.75)
 
@@ -42,7 +44,8 @@ def open_interface_vendas():
         width=300,
         height=40,
         font=ctk.CTkFont(size=16, family="Arial Bold"),
-        text_color="black"
+        fg_color=cor_secundaria_ard(),
+        text_color="white"
     )
     campo_quant.place(relx=0.6, rely=0.85)
 
@@ -50,7 +53,7 @@ def open_interface_vendas():
         tela_vendas,
         width=350,
         height=350,
-        fg_color="#CCCCCC",
+        fg_color=cor_terciaria_cnzesc(),
         text_color="black"
     )
     box_texto.place(relx=0.35, rely=0.70)
@@ -61,13 +64,15 @@ def open_interface_vendas():
         quant = campo_quant.get()
         box_texto.configure(state="normal")
 
-        # 🔎 Buscar produto pelo código no banco de dados
-        produto = session.query(Produto).filter_by(cod_produto=int(codigo)).first()
+        #Buscar produto no banco pelo código de barras
+        try:
+            produto = session.query(Produto).filter_by(cod_produto=int(codigo)).first()
+        except ValueError:
+            produto = None  # Caso o código não seja numérico
 
         if produto:
             try:
-                quant_formatado = quant.replace(',', '.')
-                quant_float = float(quant_formatado)
+                quant_float = float(quant.replace(',', '.')) if quant else 1
             except ValueError:
                 quant_float = 1
 
@@ -77,12 +82,12 @@ def open_interface_vendas():
             total_valor += total
             total_label.configure(text=f"Total: R$ {format(total_valor, '.2f').replace('.', ',')}")
 
-            # 🛒 Exibir informações do produto
+            
             box_texto.insert("end", f"Nome: {produto.nome_produto}\n")
             box_texto.insert("end", f"Código: {produto.cod_produto}\n")
             box_texto.insert("end", f"Preço: R$ {produto.preco_venda:.2f}     Quantidade: {quant_float}\n")
             box_texto.insert("end", f"Total: R$ {total}\n")
-            box_texto.insert("end", f"Lucro estimado: R$ {produto.lucro:.2f}\n")  # Exibe lucro armazenado no banco
+            box_texto.insert("end", f"Lucro armazenado: R$ {produto.lucro:.2f}\n")  # Exibe lucro do banco
             box_texto.insert("end", "-" * 20 + "\n")
         else:
             box_texto.insert("end", f"Código {codigo} não encontrado no banco.\n")
@@ -95,5 +100,6 @@ def open_interface_vendas():
     campo_codebar.bind("<Return>", show_info)
     campo_quant.bind("<Return>", show_info)
 
-    tela_vendas.protocol("WM_DELETE_WINDOW", tela_vendas.destroy)
+    tela_vendas.protocol("WM_DELETE_WINDOW", lambda: safe_destroy(tela_vendas))
+    tela_vendas.bind("<q>", lambda event: safe_destroy(tela_vendas))
     tela_vendas.mainloop()
