@@ -1,15 +1,20 @@
 import customtkinter as ctk
-from global_resources import *
 import ctypes
 from decimal import Decimal, ROUND_UP
+from sqlalchemy.orm import sessionmaker
+from database import Produto, db  # Importa a classe Produto e conexão com o banco
 
 ctypes.windll.user32.SetProcessDPIAware()
+
+# Conectar ao banco de dados
+Session = sessionmaker(bind=db)
+session = Session()
 
 def open_interface_vendas():
     tela_vendas = ctk.CTk()
     tela_vendas.title('Tela de Vendas')
-    tela_vendas.geometry(resolucao_tela_monitor())
-    tela_vendas.configure(fg_color=cor_principal_cinza_claro())
+    tela_vendas.geometry("800x600")
+    tela_vendas.configure(fg_color="#DDDDDD")
 
     total_valor = Decimal("0.00")
 
@@ -27,8 +32,7 @@ def open_interface_vendas():
         width=300,
         height=40,
         font=ctk.CTkFont(size=16, family="Arial Bold"),
-        fg_color=cor_secundaria_ard(),
-        text_color="white"
+        text_color="black"
     )
     campo_codebar.place(relx=0.6, rely=0.75)
 
@@ -38,8 +42,7 @@ def open_interface_vendas():
         width=300,
         height=40,
         font=ctk.CTkFont(size=16, family="Arial Bold"),
-        fg_color=cor_secundaria_ard(),
-        text_color="white"
+        text_color="black"
     )
     campo_quant.place(relx=0.6, rely=0.85)
 
@@ -47,7 +50,7 @@ def open_interface_vendas():
         tela_vendas,
         width=350,
         height=350,
-        fg_color=cor_terciaria_cnzesc(),
+        fg_color="#CCCCCC",
         text_color="black"
     )
     box_texto.place(relx=0.35, rely=0.70)
@@ -58,30 +61,31 @@ def open_interface_vendas():
         quant = campo_quant.get()
         box_texto.configure(state="normal")
 
-        if codigo in cod_produtos:
-            info = cod_produtos[codigo]
+        # 🔎 Buscar produto pelo código no banco de dados
+        produto = session.query(Produto).filter_by(cod_produto=int(codigo)).first()
+
+        if produto:
             try:
                 quant_formatado = quant.replace(',', '.')
                 quant_float = float(quant_formatado)
             except ValueError:
                 quant_float = 1
 
-            preco_str = str(info['preco']).replace(',', '.')
-            preco_decimal = Decimal(preco_str)
-            total = preco_decimal * Decimal(quant_float)
+            total = Decimal(produto.preco_venda) * Decimal(quant_float)
             total = total.quantize(Decimal('0.01'), rounding=ROUND_UP)
-            total_str = format(total, '.2f').replace('.', ',')
 
             total_valor += total
             total_label.configure(text=f"Total: R$ {format(total_valor, '.2f').replace('.', ',')}")
 
-            box_texto.insert("end", f"Nome: {info['nome']}\n")
-            box_texto.insert("end", f"Código: {codigo}\n")
-            box_texto.insert("end", f"Preço: R$ {preco_decimal:.2f}     Quantidade: {quant_float}\n")
-            box_texto.insert("end", f"Preço X quantidade: R$ {total_str}\n")
+            # 🛒 Exibir informações do produto
+            box_texto.insert("end", f"Nome: {produto.nome_produto}\n")
+            box_texto.insert("end", f"Código: {produto.cod_produto}\n")
+            box_texto.insert("end", f"Preço: R$ {produto.preco_venda:.2f}     Quantidade: {quant_float}\n")
+            box_texto.insert("end", f"Total: R$ {total}\n")
+            box_texto.insert("end", f"Lucro estimado: R$ {produto.lucro:.2f}\n")  # Exibe lucro armazenado no banco
             box_texto.insert("end", "-" * 20 + "\n")
         else:
-            box_texto.insert("end", f"Código {codigo} não encontrado.\n")
+            box_texto.insert("end", f"Código {codigo} não encontrado no banco.\n")
             box_texto.insert("end", "-" * 20 + "\n")
 
         box_texto.configure(state="disabled")
@@ -91,6 +95,5 @@ def open_interface_vendas():
     campo_codebar.bind("<Return>", show_info)
     campo_quant.bind("<Return>", show_info)
 
-    tela_vendas.protocol("WM_DELETE_WINDOW", lambda: safe_destroy(tela_vendas))
-    tela_vendas.bind("<q>", lambda event: safe_destroy(tela_vendas))
+    tela_vendas.protocol("WM_DELETE_WINDOW", tela_vendas.destroy)
     tela_vendas.mainloop()

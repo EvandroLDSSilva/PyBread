@@ -47,10 +47,3 @@ def valid_login(campo_usuario, campo_senha, result_login, security, open_interfa
         security.after(300, lambda: safe_destroy(security), open_interface_principal())
     else:
         result_login.configure(text='Login Inválido', text_color='red')
-
-# Criando a biblioteca de produtos
-cod_produtos = {
-    "1": {"nome": "Pao Françes", "preco": 1},
-    "50": {"nome": "Mortadela Defumada", "preco": 25.50},
-    "9999": {"nome": "Calabresa KG", "preco": 85},
-}
