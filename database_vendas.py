@@ -26,6 +26,7 @@ class Produto(Base):
         self.preco_compra = preco_compra
         self.lucro = preco_venda - preco_compra
 
+    
 Base.metadata.create_all(bind=db)
 
 # CRUD
