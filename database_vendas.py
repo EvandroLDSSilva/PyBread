@@ -17,14 +17,14 @@ class Produto(Base):
     cod_produto = Column("cod_produto", Integer)
     preco_venda = Column("preco_venda", Float)
     preco_compra = Column("preco_compra", Float)
-    lucro = Column("lucro", Float)  # Lucro agora é armazenado na tabela Produto
+    lucro = Column("lucro", Float)
 
     def __init__(self, nome_produto, cod_produto, preco_venda, preco_compra):
         self.nome_produto = nome_produto
         self.cod_produto = cod_produto
         self.preco_venda = preco_venda
         self.preco_compra = preco_compra
-        self.lucro = preco_venda - preco_compra  # Calcula o lucro e armazena
+        self.lucro = preco_venda - preco_compra
 
 Base.metadata.create_all(bind=db)
 

@@ -64,11 +64,10 @@ def open_interface_vendas():
         quant = campo_quant.get()
         box_texto.configure(state="normal")
 
-        #Buscar produto no banco pelo código de barras
         try:
             produto = session.query(Produto).filter_by(cod_produto=int(codigo)).first()
         except ValueError:
-            produto = None  # Caso o código não seja numérico
+            produto = None
 
         if produto:
             try:
@@ -87,7 +86,7 @@ def open_interface_vendas():
             box_texto.insert("end", f"Código: {produto.cod_produto}\n")
             box_texto.insert("end", f"Preço: R$ {produto.preco_venda:.2f}     Quantidade: {quant_float}\n")
             box_texto.insert("end", f"Total: R$ {total}\n")
-            box_texto.insert("end", f"Lucro armazenado: R$ {produto.lucro:.2f}\n")  # Exibe lucro do banco
+            box_texto.insert("end", f"Lucro armazenado: R$ {produto.lucro:.2f}\n")
             box_texto.insert("end", "-" * 20 + "\n")
         else:
             box_texto.insert("end", f"Código {codigo} não encontrado no banco.\n")
