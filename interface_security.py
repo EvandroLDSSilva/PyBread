@@ -5,7 +5,8 @@ import ctypes
 
 #sss
 #deve funcionar
-#deve mesmo kk
+
+#oooooou
 ctypes.windll.user32.SetProcessDPIAware()
 
 security = ctk.CTk()
