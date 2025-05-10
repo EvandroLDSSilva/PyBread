@@ -3,30 +3,24 @@ from sqlalchemy.orm import sessionmaker, declarative_base
 
 from global_resources import *
 
-db = create_engine("sqlite:///db_database_vendas.db")
+db = create_engine("sqlite:///db_database_users.db")
 Session = sessionmaker(bind=db)
 session = Session()
 
 Base = declarative_base()
 
-class Produto(Base):
-    __tablename__ = "produtos"
+class User(Base):
+    __tablename__ = "usuários"
 
     id = Column("id", Integer, primary_key=True, autoincrement=True)
-    nome_produto = Column("nome_produto", String)
-    cod_produto = Column("cod_produto", Integer)
-    preco_venda = Column("preco_venda", Float)
-    preco_compra = Column("preco_compra", Float)
-    lucro = Column("lucro", Float)
+    nome_user = Column("nome_user", String)
+    senha = Column("senha", Integer)
 
-    def __init__(self, nome_produto, cod_produto, preco_venda, preco_compra):
-        self.nome_produto = nome_produto
-        self.cod_produto = cod_produto
-        self.preco_venda = preco_venda
-        self.preco_compra = preco_compra
-        self.lucro = preco_venda - preco_compra
 
-    
+    def __init__(self, nome_user, senha):
+        self.nome_user = nome_user
+        self.senha = senha
+
 Base.metadata.create_all(bind=db)
 
 # CRUD

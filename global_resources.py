@@ -4,14 +4,14 @@ from ctypes import wintypes
 
 ctypes.windll.user32.SetProcessDPIAware()
 
-def cor_principal_cinza_claro():
-    return "#f5f5f5"  # Cinza escuro
+def cor_principal():
+    return "#ffffff"  # Cinza escuro
 
-def cor_secundaria_ard():
-    return "#7b68ee"  # Cor Salmão Azul
+def cor_secundaria():
+    return "#4169E1"  # Cor Salmão Azul
 
-def cor_terciaria_cnzesc():
-    return "#73808d"  # Cor Tomate (vermelho levemente claro)
+def cor_terciaria():
+    return "#87CEFA"  # Cor Tomate (vermelho levemente claro)
 
 def resolucao_tela_monitor():
     tela_monitor = ctk.CTk()
