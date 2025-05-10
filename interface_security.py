@@ -3,13 +3,6 @@ from interface_principal import open_interface_principal
 from global_resources import valid_login, safe_destroy
 import ctypes
 
-#sss ii
-#deve funcionar
-
-
-
-
-#oooooou
 ctypes.windll.user32.SetProcessDPIAware()
 
 security = ctk.CTk()
