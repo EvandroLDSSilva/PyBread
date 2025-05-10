@@ -7,6 +7,8 @@ import ctypes
 #deve funcionar
 
 
+
+
 #oooooou
 ctypes.windll.user32.SetProcessDPIAware()
 
