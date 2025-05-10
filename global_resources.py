@@ -1,7 +1,7 @@
 import customtkinter as ctk
 import ctypes
 from ctypes import wintypes
-
+#teste nsc
 ctypes.windll.user32.SetProcessDPIAware()
 
 def cor_principal():
