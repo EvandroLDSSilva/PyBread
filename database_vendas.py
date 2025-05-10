@@ -3,6 +3,7 @@ from sqlalchemy.orm import sessionmaker, declarative_base
 
 from global_resources import *
 
+
 db = create_engine("sqlite:///db_database_vendas.db")
 Session = sessionmaker(bind=db)
 session = Session()
