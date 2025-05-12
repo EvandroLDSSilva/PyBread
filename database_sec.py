@@ -1,6 +1,5 @@
-from sqlalchemy import create_engine, Column, String, Integer, Float
-from sqlalchemy.orm import sessionmaker, declarative_base
-
+from sqlalchemy import *
+from sqlalchemy.orm import *
 from global_resources import *
 
 db = create_engine("sqlite:///db_database_users.db")
@@ -26,7 +25,7 @@ Base.metadata.create_all(bind=db)
 # CRUD
 
 # C - Create
-#produto = Produto(nome_produto="Pão Hamburguer pc", cod_produto=7891, preco_venda=7.50, preco_compra=5.50)
+user = User(nome_user="adm", senha=2335)
 #session.add(produto)
 #session.commit()
 
