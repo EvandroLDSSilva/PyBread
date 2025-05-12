@@ -1,5 +1,5 @@
-from sqlalchemy import create_engine, Column, String, Integer, Float
-from sqlalchemy.orm import sessionmaker, declarative_base
+from sqlalchemy import *
+from sqlalchemy.orm import *
 
 from global_resources import *
 
