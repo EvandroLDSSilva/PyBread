@@ -15,7 +15,7 @@ class User(Base):
 
     id = Column("id", Integer, primary_key=True, autoincrement=True)
     nome_user = Column("nome_user", String, unique=True, nullable=False)
-    senha = Column("senha", Integer, nullable=False)
+    senha_user = Column("senha", Integer, nullable=False)
 
 
     def __init__(self, nome_user, senha):

@@ -1,7 +1,11 @@
 import customtkinter as ctk
 import ctypes
 from ctypes import wintypes
-#teste nsc2
+from database_sec import *
+from sqlalchemy import *
+from sqlalchemy.orm import *
+
+
 ctypes.windll.user32.SetProcessDPIAware()
 
 def cor_principal():
@@ -38,13 +42,13 @@ def safe_destroy(widget):
     except Exception as e:
         print(f"Erro ao destruir o widget: {e}")
 
-def valid_login(campo_usuario, campo_senha, result_login, security, open_interface_principal):
+def valid_login(campo_usuario, campo_senha, result_login, security, open_interface_principal, session):
     usuario = campo_usuario.get()
     senha = campo_senha.get()
 
-    if (usuario == 'jorge' and senha == '123456') or (usuario == 'adm' and senha == '2335') or (usuario == '' and senha == ''):
+    user_valid = session.query(User).filter_by(nome_user=usuario, senha_user=senha).first()
 
-        
+    if user_valid:
         result_login.configure(text='Login Concluido \n Bem Vindo :D', text_color='green')
         security.after(300, lambda: safe_destroy(security), open_interface_principal())
     else:

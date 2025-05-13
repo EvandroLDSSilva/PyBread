@@ -45,7 +45,7 @@ campo_senha = ctk.CTkEntry(
 )
 campo_senha.pack(pady=15)
 
-result_login = ctk.CTkLabel(
+result_login = ctk.CTkLabel( 
     security,
     text='',
     text_color='white',
