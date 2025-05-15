@@ -11,6 +11,8 @@ ctypes.windll.user32.SetProcessDPIAware()
 Session = sessionmaker(bind=db)
 session = Session()
 
+total_valor = Decimal('0.00')
+
 def open_interface_vendas():
     intfc_vendas = ctk.CTk()
     intfc_vendas.title('Tela de Vendas')
@@ -33,12 +35,10 @@ def open_interface_vendas():
     box_texto = ctk.CTkTextbox(intfc_vendas, width=350, height=350, fg_color=cor_terciaria(), text_color="black")
     box_texto.place(relx=0.35, rely=0.70)
 
-    #def total_tudo():
-        
-
+    
 
     def show_info(event=None):
-        nonlocal total_valor
+        global total_valor
         codigo = campo_codebar.get()
         quant = campo_quant.get()
         box_texto.configure(state="normal")
@@ -58,7 +58,7 @@ def open_interface_vendas():
             total = total.quantize(Decimal('0.01'), rounding=ROUND_UP)
             total_valor += total
             total_label.configure(text=f"Total: R$ {format(total_valor, '.2f').replace('.', ',')}")
-            
+
             box_texto.configure(state="normal")
             box_texto.insert("end", f"Nome: {produto.nome_produto}\n")
             box_texto.insert("end", f"Código: {produto.cod_produto}\n")
