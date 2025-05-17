@@ -4,23 +4,48 @@ from decimal import Decimal, ROUND_UP
 from sqlalchemy.orm import *
 from database_vendas import *
 from global_resources import *
-from tela_vender import *
 
 ctypes.windll.user32.SetProcessDPIAware()
 
 Session = sessionmaker(bind=db)
 session = Session()
 
-total_valor = Decimal('0.00')
+total_valor = Decimal('0.00')  # Mantendo esta variável acessível globalmente
+
+def open_tela_vender():
+    global total_valor
+    tela_vndr = ctk.CTk()
+    tela_vndr.title('Tela de Vendas')
+    tela_vndr.geometry(resolucao_tela_monitor())
+    tela_vndr.configure(fg_color=cor_principal())
+
+    label_total_vender = ctk.CTkLabel(
+        tela_vndr,
+        text=f"Total: R$ {total_valor:.2f}".replace('.', ','),
+        text_color='black',
+        font=ctk.CTkFont(size=22, family="Arial Bold")
+    )
+    label_total_vender.place(relx=0.35, rely=0.65)
+
+    tela_vndr.protocol("WM_DELETE_WINDOW", lambda: safe_destroy(tela_vndr))
+    tela_vndr.bind("<q>", lambda event: safe_destroy(tela_vndr))
+
+    tela_vndr.mainloop()
 
 def open_interface_vendas():
+    global total_valor
+
     intfc_vendas = ctk.CTk()
     intfc_vendas.title('Tela de Vendas')
     intfc_vendas.geometry(resolucao_tela_monitor())
     intfc_vendas.configure(fg_color=cor_principal())
 
-    total_valor = Decimal("0.00")
-    total_label = ctk.CTkLabel(intfc_vendas, text="Total: R$ 0,00", text_color="black", font=ctk.CTkFont(size=20, family="Arial Bold"))
+    total_label = ctk.CTkLabel(
+        intfc_vendas,
+        text=f"Total: R$ {total_valor:.2f}".replace('.', ','),
+        text_color="black",
+        font=ctk.CTkFont(size=20, family="Arial Bold")
+    )
     total_label.place(relx=0.35, rely=0.65)
 
     campo_codebar = ctk.CTkEntry(intfc_vendas, placeholder_text='Digite o código de barras: ', width=300, height=40, font=ctk.CTkFont(size=16, family="Arial Bold"), fg_color=cor_secundaria(), text_color="white")
@@ -29,13 +54,11 @@ def open_interface_vendas():
     campo_quant = ctk.CTkEntry(intfc_vendas, placeholder_text='Digite a quantidade', width=300, height=40, font=ctk.CTkFont(size=16, family="Arial Bold"), fg_color=cor_secundaria(), text_color="white")
     campo_quant.place(relx=0.6, rely=0.85)
 
-    btm_vender = ctk.CTkButton(intfc_vendas, text='receber \ná vista', command=open_tela_vender, width=250, height=50, font=ctk.CTkFont(size=16, family="Arial Bold"), fg_color=cor_secundaria(), text_color="white")
+    btm_vender = ctk.CTkButton(intfc_vendas, text='Receber à vista', command=open_tela_vender, width=250, height=50, font=ctk.CTkFont(size=16, family="Arial Bold"), fg_color=cor_secundaria(), text_color="white")
     btm_vender.place(relx=0.6, rely=0.30)
 
     box_texto = ctk.CTkTextbox(intfc_vendas, width=350, height=350, fg_color=cor_terciaria(), text_color="black")
     box_texto.place(relx=0.35, rely=0.70)
-
-    
 
     def show_info(event=None):
         global total_valor
@@ -59,10 +82,9 @@ def open_interface_vendas():
             total_valor += total
             total_label.configure(text=f"Total: R$ {format(total_valor, '.2f').replace('.', ',')}")
 
-            box_texto.configure(state="normal")
             box_texto.insert("end", f"Nome: {produto.nome_produto}\n")
             box_texto.insert("end", f"Código: {produto.cod_produto}\n")
-            box_texto.insert("end", f"Preço: R$ {produto.preco_venda:.2f}     Quantidade: {quant_float}\n")
+            box_texto.insert("end", f"Preço: R$ {produto.preco_venda:.2f}  Quantidade: {quant_float}\n")
             box_texto.insert("end", f"Total: R$ {total}\n")
             box_texto.insert("end", f"Lucro armazenado: R$ {produto.lucro:.2f}\n")
             box_texto.insert("end", "-" * 20 + "\n")
@@ -78,4 +100,5 @@ def open_interface_vendas():
     campo_quant.bind("<Return>", show_info)
     intfc_vendas.protocol("WM_DELETE_WINDOW", lambda: safe_destroy(intfc_vendas))
     intfc_vendas.bind("<q>", lambda event: safe_destroy(intfc_vendas))
+
     intfc_vendas.mainloop()
