@@ -33,7 +33,7 @@ Base.metadata.create_all(bind=db)
 # CRUD
 
 # C - Create
-#produto = Produto(nome_produto="Pão Hamburguer pc", cod_produto=7891, preco_venda=7.50, preco_compra=5.50)
+#produto = Produto(nome_produto="testeproduto2", cod_produto=2, preco_venda=8.88, preco_compra=8.88)
 #session.add(produto)
 #session.commit()
 

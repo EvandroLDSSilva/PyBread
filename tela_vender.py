@@ -32,7 +32,27 @@ def open_tela_vender():
         text_color='black',
         font=ctk.CTkFont(size=22, family="Arial Bold")
     )
-    label_total_vender.place(relx=0.35, rely=0.65)
+    label_total_vender.place(relx=0.75, rely=0.40)
+
+    campo_rcb_dinheiro= ctk.CTkEntry(
+        tela_vndr,
+        placeholder_text='Dinheiro recebido',
+        width=300, height=40,
+        font=ctk.CTkFont(size=16, 
+        family="Arial Bold"), 
+        fg_color=cor_secundaria(), 
+        text_color="white"
+    )
+    campo_rcb_dinheiro.place(relx=0.75, rely=0.50)
+
+    #campo_usuario = ctk.CTkEntry(
+    #security,
+    #placeholder_text='Digite o Usuário',
+    #font=ctk.CTkFont(size=14, family="Roboto Bold"),
+    #fg_color="#23272A",
+    #text_color="white"
+#)
+#campo_usuario.pack(pady=15)
 
     tela_vndr.protocol("WM_DELETE_WINDOW", lambda: safe_destroy(tela_vndr))
     tela_vndr.bind("<q>", lambda event: safe_destroy(tela_vndr))
