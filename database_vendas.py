@@ -27,13 +27,12 @@ class Produto(Base):
         self.preco_compra = preco_compra
         self.lucro = preco_venda - preco_compra
 
-    
 Base.metadata.create_all(bind=db)
 
 # CRUD
 
 # C - Create
-#produto = Produto(nome_produto="testeproduto2", cod_produto=2, preco_venda=8.88, preco_compra=8.88)
+#produto = Produto(nome_produto="pao hotdog", cod_produto=7891, preco_venda=0.60, preco_compra=0.35)
 #session.add(produto)
 #session.commit()
 
