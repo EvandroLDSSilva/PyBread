@@ -45,6 +45,26 @@ def open_tela_vender():
     )
     campo_rcb_dinheiro.place(relx=0.75, rely=0.50)
 
+    label_troco_vender = ctk.CTkLabel(
+        tela_vndr,
+        text="Troco: R$ 0,00",
+        text_color='black',
+        font=ctk.CTkFont(size=22, family="Arial Bold")
+    )
+    label_troco_vender.place(relx=0.75, rely=0.60)
+
+    def atualizar_troco(event=None):
+        try:
+            dinheiro_recebido = Decimal(campo_rcb_dinheiro.get().replace(',', '.') or '0')
+            troco = dinheiro_recebido - total_valor
+            label_troco_vender.configure(text=f"Troco: R$ {troco:.2f}".replace('.', ','))
+        except ValueError:
+            label_troco_vender.configure(text="Valor inválido")
+
+    campo_rcb_dinheiro.bind("<Return>", atualizar_troco)
+
+
+
     #campo_usuario = ctk.CTkEntry(
     #security,
     #placeholder_text='Digite o Usuário',
