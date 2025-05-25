@@ -1,6 +1,6 @@
 import customtkinter as ctk
 
-# Configuração da janela principa
+# Configuração da janela principal
 root = ctk.CTk()
 root.geometry("400x500")
 root.title("Chatbox IA")
