@@ -1,14 +1,13 @@
 import customtkinter as ctk
 import ctypes
-from ctypes import wintypes
-
+from datetime import datetime
 from sqlalchemy import *
 from sqlalchemy.orm import *
 
 ctypes.windll.user32.SetProcessDPIAware()
 
 def cor_principal():
-    return "#ffffff"  #Branco puro
+    return "#ffffff"  # Branco puro
 
 def cor_secundaria():
     return "#4169E1"  # Cor Azul
@@ -46,9 +45,19 @@ def valid_login(campo_usuario, campo_senha, result_login, security, open_interfa
     senha = campo_senha.get()
 
     if (usuario == 'jorge' and senha == '123456') or (usuario == 'adm' and senha == '2335') or (usuario == '' and senha == ''):
-
-        
-        result_login.configure(text='Login Concluido \n Bem Vindo :D', text_color='green')
-        security.after(300, lambda: safe_destroy(security), open_interface_principal())
+        result_login.configure(text='Login Concluído \n Bem-Vindo :D', text_color='green')
+        security.after(300, lambda: safe_destroy(security))
+        open_interface_principal()
     else:
         result_login.configure(text='Login Inválido', text_color='red')
+
+def carregar_data():
+    """Retorna a data e hora atual formatada."""
+    agora = datetime.now()
+    return agora.strftime("%d/%m/%Y %H:%M:%S")
+
+def atualizar_data(label, tela):
+    """Atualiza automaticamente a data e hora na interface."""
+    nova_data = carregar_data()
+    label.configure(text=nova_data)
+    tela.after(1000, lambda: atualizar_data(label, tela))  # Atualiza a cada segundo

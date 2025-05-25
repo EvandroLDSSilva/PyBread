@@ -11,15 +11,13 @@ ctypes.windll.user32.SetProcessDPIAware()
 Session = sessionmaker(bind=db)
 session = Session()
 
-total_valor = Decimal('0.00')
-
 def open_interface_vendas():
-    global total_valor
-
     intfc_vendas = ctk.CTk()
     intfc_vendas.title('Tela de Vendas')
     intfc_vendas.geometry(resolucao_tela_monitor())
     intfc_vendas.configure(fg_color=cor_principal())
+
+    total_valor = Decimal('0.00')  # Inicializando dentro da função
 
     total_label = ctk.CTkLabel(
         intfc_vendas,
@@ -35,14 +33,12 @@ def open_interface_vendas():
     campo_quant = ctk.CTkEntry(intfc_vendas, placeholder_text='Digite a quantidade', width=300, height=40, font=ctk.CTkFont(size=16, family="Arial Bold"), fg_color=cor_secundaria(), text_color="white")
     campo_quant.place(relx=0.6, rely=0.85)
 
-    btm_vender = ctk.CTkButton(intfc_vendas, text='Receber à vista', command=open_tela_vender, width=250, height=50, font=ctk.CTkFont(size=16, family="Arial Bold"), fg_color=cor_secundaria(), text_color="white")
-    btm_vender.place(relx=0.6, rely=0.30)
-
     box_texto = ctk.CTkTextbox(intfc_vendas, width=350, height=350, fg_color=cor_terciaria(), text_color="black")
     box_texto.place(relx=0.35, rely=0.70)
 
     def show_info(event=None):
-        global total_valor
+        """Atualiza total_valor e exibe informações dos produtos."""
+        nonlocal total_valor  # Permite modificar a variável dentro da função
         codigo = campo_codebar.get()
         quant = campo_quant.get()
         box_texto.configure(state="normal")
@@ -60,7 +56,7 @@ def open_interface_vendas():
 
             total = Decimal(produto.preco_venda) * Decimal(quant_float)
             total = total.quantize(Decimal('0.01'), rounding=ROUND_UP)
-            total_valor += total
+            total_valor += total                    
             total_label.configure(text=f"Total: R$ {format(total_valor, '.2f').replace('.', ',')}")
 
             box_texto.insert("end", f"Nome: {produto.nome_produto}\n")
@@ -79,6 +75,18 @@ def open_interface_vendas():
 
     campo_codebar.bind("<Return>", show_info)
     campo_quant.bind("<Return>", show_info)
+
+    # Ajustando botão para chamar a função corretamente
+    btm_vender = ctk.CTkButton(
+        intfc_vendas, 
+        text='Receber à vista',
+        command=lambda: open_tela_vender(total_valor),  # Passando total_valor atualizado
+        width=250, height=50,
+        font=ctk.CTkFont(size=16, family="Arial Bold"),
+        fg_color=cor_secundaria(), text_color="white"
+    )
+    btm_vender.place(relx=0.6, rely=0.30)
+
     intfc_vendas.protocol("WM_DELETE_WINDOW", lambda: safe_destroy(intfc_vendas))
     intfc_vendas.bind("<q>", lambda event: safe_destroy(intfc_vendas))
 

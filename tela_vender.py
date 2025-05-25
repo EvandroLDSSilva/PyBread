@@ -2,7 +2,6 @@ import customtkinter as ctk
 import ctypes
 from global_resources import *
 from database_vendas import *
-from interface_vendas import *
 from decimal import Decimal, ROUND_UP
 
 ctypes.windll.user32.SetProcessDPIAware()
@@ -10,15 +9,8 @@ ctypes.windll.user32.SetProcessDPIAware()
 Session = sessionmaker(bind=db)
 session = Session()
 
-total_valor = Decimal('0.00')
-
-def open_tela_vender():
-    global total_valor
-
-    registros = session.query(Produto).all()
-    total_soma = sum(Decimal(str(registro.preco_venda)) for registro in registros)
-    total_valor += total_soma
-
+def open_tela_vender(total_valor):
+    
     tela_vndr = ctk.CTk()
     tela_vndr.title('Tela de Vendas')
     tela_vndr.geometry(resolucao_tela_monitor())
