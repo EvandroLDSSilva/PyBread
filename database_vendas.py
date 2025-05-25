@@ -1,5 +1,5 @@
-from sqlalchemy import create_engine, Column, String, Integer, Float
-from sqlalchemy.orm import sessionmaker, declarative_base
+from sqlalchemy import *
+from sqlalchemy.orm import *
 
 from global_resources import *
 
@@ -27,13 +27,12 @@ class Produto(Base):
         self.preco_compra = preco_compra
         self.lucro = preco_venda - preco_compra
 
-    
 Base.metadata.create_all(bind=db)
 
 # CRUD
 
 # C - Create
-#produto = Produto(nome_produto="Pão Hamburguer pc", cod_produto=7891, preco_venda=7.50, preco_compra=5.50)
+#produto = Produto(nome_produto="pao hotdog", cod_produto=7891, preco_venda=0.60, preco_compra=0.35)
 #session.add(produto)
 #session.commit()
 

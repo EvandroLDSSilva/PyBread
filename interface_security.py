@@ -1,6 +1,8 @@
 import customtkinter as ctk
 from interface_principal import open_interface_principal
-from global_resources import valid_login, safe_destroy
+from global_resources import *
+from sqlalchemy import *
+from sqlalchemy.orm import *
 import ctypes
 
 ctypes.windll.user32.SetProcessDPIAware()
@@ -45,7 +47,7 @@ campo_senha = ctk.CTkEntry(
 )
 campo_senha.pack(pady=15)
 
-result_login = ctk.CTkLabel(
+result_login = ctk.CTkLabel( 
     security,
     text='',
     text_color='white',
