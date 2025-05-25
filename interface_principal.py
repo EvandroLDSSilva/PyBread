@@ -1,4 +1,5 @@
 import customtkinter as ctk
+from AIChatbox.interface_ia import open_intfc_ia
 from global_resources import *
 from interface_vendas import open_interface_vendas
 from interface_cPlanilhas import open_interface_cPlanilhas
@@ -50,17 +51,17 @@ def open_interface_principal():
     )
     btm_f_cPlanilha.place(relx=0.55, rely=0.30)
 
-    btm_f_area_vendas = ctk.CTkButton(
+    btm_open_ia = ctk.CTkButton(
         tela_principal,
-        text='IA\nBaggeteBot',
-        command=open_,
+        text='IA\nBaggete',
+        command=open_intfc_ia,
         width=100,
         height=100,
         font=ctk.CTkFont(size=18, family="Arial Bold"),
-        fg_color=cor_secundaria(),
+        fg_color='#ff7b00',
         text_color="white"
     )
-    btm_f_area_vendas.place(relx=0.40, rely=0.30)
+    btm_open_ia.place(relx=0.90, rely=0.10)
 
     label_datahora_intf_principal = ctk.CTkLabel(
         tela_principal,
