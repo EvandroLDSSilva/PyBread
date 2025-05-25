@@ -4,7 +4,7 @@ from ctypes import wintypes
 
 from sqlalchemy import *
 from sqlalchemy.orm import *
-
+#teste
 
 ctypes.windll.user32.SetProcessDPIAware()
 
