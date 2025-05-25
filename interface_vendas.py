@@ -5,7 +5,7 @@ from sqlalchemy.orm import *
 from database_vendas import *
 from global_resources import *
 from tela_vender import open_tela_vender
-''
+
 ctypes.windll.user32.SetProcessDPIAware()
 
 Session = sessionmaker(bind=db)

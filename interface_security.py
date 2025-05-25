@@ -16,7 +16,7 @@ label_usuario = ctk.CTkLabel(
     security,
     text='Usuário',
     text_color='white',
-    font=ctk.CTkFont(size=16, family="Roboto Bold")
+    font=ctk.CTkFont(size=16, family="Roboto Bold"),
 )
 label_usuario.pack(pady=10)
 
