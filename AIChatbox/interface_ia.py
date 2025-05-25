@@ -1,5 +1,5 @@
 import customtkinter as ctk
-
+ 
 def open_intfc_ia():
 
     tela_ia = ctk.CTk()
