@@ -28,13 +28,12 @@ class Produto(Base):
         self.preco_compra = preco_compra
         self.lucro = preco_venda - preco_compra
 
-class CupomVenda(Base):  # Nome ajustado para seguir convenção de classes
+class CupomVenda(Base):  
     __tablename__ = "cupons"
 
     id = Column(Integer, primary_key=True, autoincrement=True)
-    content_cupom = Column(Text, nullable=False)  # Corrigido para definir o tipo da coluna
+    content_cupom = Column(Text, nullable=False)  # Armazena os cupons
 
-# Criando tabelas no banco de dados
 Base.metadata.create_all(bind=db)
 
 # CRUD - Exemplo de uso

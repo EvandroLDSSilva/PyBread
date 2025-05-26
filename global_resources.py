@@ -60,4 +60,4 @@ def atualizar_data(label, tela):
     """Atualiza automaticamente a data e hora na interface."""
     nova_data = carregar_data()
     label.configure(text=nova_data)
-    tela.after(1000, lambda: atualizar_data(label, tela))  # Atualiza a cada segundo
+    tela.after(1000, lambda: atualizar_data(label, tela))  # Atualiza a cada um segundo

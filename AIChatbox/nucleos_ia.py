@@ -2,28 +2,24 @@ import os
 from langchain_groq import ChatGroq
 from langchain.prompts import ChatPromptTemplate
 
-api_key =  "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"
-os.environ['GROQ_API_KEY'] = api_key
+api_key = "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"
+os.environ["GROQ_API_KEY"] = api_key
 
-chat = ChatGroq(model='llama-3.3-70b-versatile')
+chat = ChatGroq(model="llama-3.3-70b-versatile")
 
-def resposta_bot(mensagens):
-  mensagens_modelo = [('system', 'Você é um assistente amigável chamado Baguette oIa')]
-  mensagens_modelo += mensagens
-  template = ChatPromptTemplate.from_messages(mensagens_modelo)
-  chain = template | chat
-  return chain.invoke({}).content
+mensagens = []  # Histórico de conversas
 
-print('Bem-vindo ao Baguette Ia')
+def resposta_bot(mensagem_usuario):
+    """Gera resposta do Baguette IA para uso na interface gráfica."""
+    mensagens.append(("user", mensagem_usuario))  # Adiciona ao histórico
+    mensagens_modelo = [("system", "Você é um assistente amigável chamado Baguette IA.")]
+    mensagens_modelo += mensagens
+    template = ChatPromptTemplate.from_messages(mensagens_modelo)
+    chain = template | chat
 
-mensagens = []
-while True:
-  pergunta = input('Usuario: ')
-  if pergunta.lower() == 'x' or pergunta.lower() == 'sair'  :
-    break
-  mensagens.append(('user', pergunta))
-  resposta = resposta_bot(mensagens)
-  mensagens.append(('assistant', resposta))
-  print(f'Bot: {resposta}')
-
-print('Muito obrigado por usar o Baguette IA')
+    try:
+        resposta = chain.invoke({}).content
+        mensagens.append(("assistant", resposta))  # Mantém histórico
+        return resposta
+    except Exception as e:
+        return f"Erro ao gerar resposta: {e}"
