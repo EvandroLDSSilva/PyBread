@@ -57,6 +57,20 @@ def open_interface_vendas():
     box_texto = ctk.CTkTextbox(intfc_vendas, width=350, height=350, fg_color=cor_terciaria(), text_color="black")
     box_texto.place(relx=0.35, rely=0.65)
 
+    label_datahora_intf_principal = ctk.CTkLabel(
+        intfc_vendas,
+        text=carregar_data(),
+        text_color='black',
+        font=ctk.CTkFont(size=15, family="Arial Bold"))
+    label_datahora_intf_principal.place(relx=0.10, rely=0.90)
+
+    def atualizar_data():
+        label_datahora_intf_principal.configure(text=carregar_data())
+        intfc_vendas.after(1000, atualizar_data)
+
+    # Inicia a atualização automática da data e hora
+    atualizar_data()
+
     def show_info(event=None):
         """Atualiza total_valor e exibe informações dos produtos."""
         nonlocal total_valor  
@@ -84,6 +98,8 @@ def open_interface_vendas():
             lucro_total = Decimal(produto.lucro) * Decimal(quant_float)  # Multiplicação correta do lucro
             lucro_total = lucro_total.quantize(Decimal('0.01'), rounding=ROUND_UP)
 
+            box_texto.insert("end", carregar_data() + "\n"), box_texto.configure(text_color="black", font=ctk.CTkFont(family="Arial Bold", size=15))
+            
             box_texto.insert("end", f"Nome: {produto.nome_produto}\n")
             box_texto.insert("end", f"Código: {produto.cod_produto}\n")
             box_texto.insert("end", f"Preço: R$ {produto.preco_venda:.2f}  Quantidade: {quant_float}\n")

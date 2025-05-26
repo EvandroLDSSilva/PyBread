@@ -24,13 +24,12 @@ def open_intfc_ia():
             label_msg_user = ctk.CTkLabel(frame_chat, text=f"Você: {mensagem}", wraplength=350, justify="left")
             label_msg_user.pack(anchor="w", padx=10, pady=4)
 
-            entry_msg.delete(0, "end")  # Limpa o campo de entrada
+            entry_msg.delete(0, "end")
             
-            resposta = resposta_bot(mensagem)  # Obtém resposta da IA
+            resposta = resposta_bot(mensagem)
             label_msg_bot = ctk.CTkLabel(frame_chat, text=f"BaguetteBot: {resposta}", wraplength=350, justify="left")
             label_msg_bot.pack(anchor="w", padx=10, pady=4)
 
-            # **Move automaticamente para a última mensagem**
             frame_chat._parent_canvas.yview_moveto(1)
 
     btn_send = ctk.CTkButton(frame_input, text="Enviar", width=80, command=enviar_mensagem)

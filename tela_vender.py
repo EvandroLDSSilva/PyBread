@@ -16,14 +16,13 @@ def open_tela_vender(total_valor, box_texto, campo_codebar, campo_quant, total_l
     tela_vndr.geometry("500x600")
     tela_vndr.configure(fg_color=cor_principal())
 
-    # Ajustando a posição de todos os elementos para ficarem centralizados
     label_total_vender = ctk.CTkLabel(
         tela_vndr,
         text=f"Total: R$ {total_valor:.2f}".replace('.', ','),
         text_color='black',
         font=ctk.CTkFont(size=22, family="Arial Bold")
     )
-    label_total_vender.place(relx=0.5, rely=0.35, anchor="center")  # Centralizado
+    label_total_vender.place(relx=0.5, rely=0.35, anchor="center")
 
     campo_rcb_dinheiro = ctk.CTkEntry(
         tela_vndr,

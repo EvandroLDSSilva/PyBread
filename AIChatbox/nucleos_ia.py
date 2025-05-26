@@ -10,7 +10,7 @@ chat = ChatGroq(model="llama-3.3-70b-versatile")
 mensagens = []  # Histórico de conversas
 
 def resposta_bot(mensagem_usuario):
-    """Gera resposta do Baguette IA para uso na interface gráfica."""
+    
     mensagens.append(("user", mensagem_usuario))  # Adiciona ao histórico
     mensagens_modelo = [("system", "Você é um assistente amigável chamado Baguette IA.")]
     mensagens_modelo += mensagens
