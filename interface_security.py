@@ -5,7 +5,7 @@ from sqlalchemy import *
 from sqlalchemy.orm import *
 import ctypes
 
-ctypes.windll.user32.SetProcessDPIAware()
+#ctypes.windll.user32.SetProcessDPIAware()
 
 security = ctk.CTk()
 security.title('Sistema de Login')

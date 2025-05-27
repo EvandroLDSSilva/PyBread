@@ -6,7 +6,8 @@ from interface_cPlanilhas import open_interface_cPlanilhas
 import ctypes
 from datetime import datetime
 from PIL import Image
-ctypes.windll.user32.SetProcessDPIAware()
+
+#ctypes.windll.user32.SetProcessDPIAware()
 
 def carregar_data():
     """Retorna a data e hora atual formatada."""
@@ -18,8 +19,10 @@ def open_interface_principal():
     tela_principal.title('Bem-vindo!')
     tela_principal.geometry(resolucao_tela_monitor())
     tela_principal.configure(fg_color=cor_principal()) 
+    
+    global img_carrinho_compras  # Armazena a referência globalmente
+    img_carrinho_compras = ctk.CTkImage(light_image=Image.open("C:\\PyBread\\imagem_carrinho_compras.png"), size=(95, 95))
 
-    img_btm_tela_vender = ctk.CTkImage(light_image=Image.open("C:\PyBread\imagem_btm_vender.png"), size=(30, 30))
 
     label_boas_vindas = ctk.CTkLabel(
         tela_principal,
@@ -31,6 +34,7 @@ def open_interface_principal():
 
     btm_f_area_vendas = ctk.CTkButton(
         tela_principal,
+        image=img_carrinho_compras,
         text='Área\nVendas',
         command=open_interface_vendas,
         width=100,

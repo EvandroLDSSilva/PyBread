@@ -4,7 +4,7 @@ from global_resources import *
 from database_vendas import *
 from decimal import Decimal, ROUND_UP
 
-ctypes.windll.user32.SetProcessDPIAware()
+#ctypes.windll.user32.SetProcessDPIAware()
 
 Session = sessionmaker(bind=db)
 session = Session()
