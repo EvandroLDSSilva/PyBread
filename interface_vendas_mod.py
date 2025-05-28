@@ -2,7 +2,7 @@ import customtkinter as ctk
 import ctypes
 from decimal import Decimal, ROUND_UP
 from sqlalchemy.orm import sessionmaker
-from database_vendas import *
+from SistemaBD.database_vendas import *
 from global_resources import *
 from tela_vender import open_tela_vender
 

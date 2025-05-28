@@ -2,6 +2,7 @@ import customtkinter as ctk
 from interface_principal import open_interface_principal
 from global_resources import *
 import ctypes
+from SistemaBD.database_vendas import *
 
 #   ctypes.windll.user32.SetProcessDPIAware()
 

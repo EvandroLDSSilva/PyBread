@@ -1,7 +1,7 @@
 import customtkinter as ctk
 import ctypes
 from global_resources import *
-from database_vendas import *
+from SistemaBD.database_vendas import *
 from decimal import Decimal, ROUND_UP
 
 #ctypes.windll.user32.SetProcessDPIAware()
