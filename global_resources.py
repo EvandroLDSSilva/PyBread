@@ -7,13 +7,13 @@ from sqlalchemy.orm import *
 #ctypes.windll.user32.SetProcessDPIAware()
 
 def cor_principal():
-    return "#ffffff"  # Branco puro
+    return "#ffffff"
 
 def cor_secundaria():
-    return "#4169E1"  # Cor Azul
+    return "#4169E1"
 
 def cor_terciaria():
-    return "#87CEFA"  # Cor Azul claro
+    return "#87CEFA"
 
 def resolucao_tela_monitor():
     tela_monitor = ctk.CTk()
@@ -40,24 +40,21 @@ def safe_destroy(widget):
     except Exception as e:
         print(f"Erro ao destruir o widget: {e}")
 
-def valid_login(campo_usuario, campo_senha, result_login, security, open_interface_principal):
-    usuario = campo_usuario.get()
-    senha = campo_senha.get()
+usuarios_validos = {
+    'jorge': '123456',
+    'adm': '2335',
+    '': ''  
+}
 
-    if (usuario == 'jorge' and senha == '123456') or (usuario == 'adm' and senha == '2335') or (usuario == '' and senha == ''):
-        result_login.configure(text='Login Concluído \n Bem-Vindo :D', text_color='green')
-        security.after(750, lambda: safe_destroy(security))
-        open_interface_principal()
-    else:
-        result_login.configure(text='Login Inválido', text_color='red')
+def valid_login(usuario, senha):
+    """Verifica credenciais e retorna True se o login for válido."""
+    return usuario in usuarios_validos and senha == usuarios_validos[usuario]
 
 def carregar_data():
-    """Retorna a data e hora atual formatada."""
     agora = datetime.now()
     return agora.strftime("%d/%m/%Y %H:%M:%S")
 
 def atualizar_data(label, tela):
-    """Atualiza automaticamente a data e hora na interface."""
     nova_data = carregar_data()
     label.configure(text=nova_data)
-    tela.after(1000, lambda: atualizar_data(label, tela))  # Atualiza a cada um segundo
+    tela.after(1000, lambda: atualizar_data(label, tela))
