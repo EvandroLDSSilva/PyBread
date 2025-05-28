@@ -6,7 +6,7 @@ from database_vendas import *
 from global_resources import *
 from tela_vender import open_tela_vender
 
-ctypes.windll.user32.SetProcessDPIAware()
+#ctypes.windll.user32.SetProcessDPIAware()
 
 Session = sessionmaker(bind=db)
 session = Session()
@@ -99,7 +99,7 @@ def open_interface_vendas():
             lucro_total = lucro_total.quantize(Decimal('0.01'), rounding=ROUND_UP)
 
             box_texto.insert("end", carregar_data() + "\n"), box_texto.configure(text_color="black", font=ctk.CTkFont(family="Arial Bold", size=15))
-            
+
             box_texto.insert("end", f"Nome: {produto.nome_produto}\n")
             box_texto.insert("end", f"Código: {produto.cod_produto}\n")
             box_texto.insert("end", f"Preço: R$ {produto.preco_venda:.2f}  Quantidade: {quant_float}\n")

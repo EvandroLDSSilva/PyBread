@@ -5,7 +5,7 @@ from sqlalchemy import *
 from sqlalchemy.orm import *
 import ctypes
 
-ctypes.windll.user32.SetProcessDPIAware()
+#ctypes.windll.user32.SetProcessDPIAware()
 
 security = ctk.CTk()
 security.title('Sistema de Login')
@@ -76,4 +76,4 @@ label_guia_fecha_security.pack(pady=10)
 security.bind("<q>", lambda event: safe_destroy(security)) 
 security.protocol("WM_DELETE_WINDOW", lambda: safe_destroy(security))
 
-security.mainloop()
+security.mainloop()                        

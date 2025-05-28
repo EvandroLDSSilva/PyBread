@@ -4,7 +4,7 @@ from datetime import datetime
 from sqlalchemy import *
 from sqlalchemy.orm import *
 
-ctypes.windll.user32.SetProcessDPIAware()
+#ctypes.windll.user32.SetProcessDPIAware()
 
 def cor_principal():
     return "#ffffff"  # Branco puro
@@ -46,7 +46,7 @@ def valid_login(campo_usuario, campo_senha, result_login, security, open_interfa
 
     if (usuario == 'jorge' and senha == '123456') or (usuario == 'adm' and senha == '2335') or (usuario == '' and senha == ''):
         result_login.configure(text='Login Concluído \n Bem-Vindo :D', text_color='green')
-        security.after(300, lambda: safe_destroy(security))
+        security.after(750, lambda: safe_destroy(security))
         open_interface_principal()
     else:
         result_login.configure(text='Login Inválido', text_color='red')

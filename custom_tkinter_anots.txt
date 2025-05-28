@@ -1,8 +1,6 @@
-PySimpleGUI Theme: DarkBlue14
 
 Seu Jorge's
 
-tamanho interface padrão: 1000 x 1000
 
 estranho o modo que o y e x da tela se comporta:
 _________________________________
