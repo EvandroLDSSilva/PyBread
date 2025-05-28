@@ -1,5 +1,5 @@
 import customtkinter as ctk
-from AIChatbox.interface_ia import open_intfc_ia
+from AIChatbox.interface_ia import open_intfc_ia  # IA BaggeteBot restaurada!
 from global_resources import *
 from interface_vendas_mod import open_interface_vendas
 from interface_cPlanilhas import open_interface_cPlanilhas
@@ -7,10 +7,10 @@ import ctypes
 from datetime import datetime
 from PIL import Image
 
-#ctypes.windll.user32.SetProcessDPIAware()
+# Configuração de DPI para melhor renderização (opcional)
+# ctypes.windll.user32.SetProcessDPIAware()
 
 def carregar_data():
-    """Retorna a data e hora atual formatada."""
     agora = datetime.now()
     return agora.strftime("%d/%m/%Y %H:%M:%S")
 
@@ -20,10 +20,12 @@ def open_interface_principal():
     tela_principal.geometry(resolucao_tela_monitor())
     tela_principal.configure(fg_color=cor_principal()) 
     
-    img_carrinho_compras = ctk.CTkImage(light_image=Image.open('PyBread/imagem_carrinho_compras.png'),
-        dark_image=Image.open('PyBread/imagem_carrinho_compras.png',),
-        size=(95, 95))
-
+    caminho_imagem = "C:\\PyBread\\blue_area_vendas_car.png"
+    img_carrinho_compras = ctk.CTkImage(
+        light_image=Image.open(caminho_imagem),
+        dark_image=Image.open(caminho_imagem),
+        size=(150, 150)
+    )
 
     label_boas_vindas = ctk.CTkLabel(
         tela_principal,
@@ -38,13 +40,14 @@ def open_interface_principal():
         image=img_carrinho_compras,
         text='',
         command=open_interface_vendas,
-        width=100,
-        height=100,
+        width=150,
+        height=150,
         font=ctk.CTkFont(size=18, family="Arial Bold"),
-        fg_color=cor_secundaria(),
+        fg_color="transparent",  
+        hover_color=cor_principal(),  
         text_color="white"
     )
-    btm_f_area_vendas.place(relx=0.45, rely=0.30)
+    btm_f_area_vendas.place(relx=0.05, rely=0.05)
 
     btm_f_cPlanilha = ctk.CTkButton(
         tela_principal,
@@ -61,7 +64,7 @@ def open_interface_principal():
     btm_open_ia = ctk.CTkButton(
         tela_principal,
         text='IA\nBaggeteBot',
-        command=open_intfc_ia,
+        command=open_intfc_ia,  # IA BaggeteBot restaurada!
         width=100,
         height=100,
         font=ctk.CTkFont(size=18, family="Arial Bold"),
@@ -81,7 +84,6 @@ def open_interface_principal():
         label_datahora_intf_principal.configure(text=carregar_data())
         tela_principal.after(1000, atualizar_data)
 
-    # Inicia a atualização automática da data e hora
     atualizar_data()
 
     btm_exit_tela_principal = ctk.CTkButton(

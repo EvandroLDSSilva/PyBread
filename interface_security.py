@@ -1,11 +1,9 @@
 import customtkinter as ctk
 from interface_principal import open_interface_principal
 from global_resources import *
-from sqlalchemy import *
-from sqlalchemy.orm import *
 import ctypes
 
-#ctypes.windll.user32.SetProcessDPIAware()
+#   ctypes.windll.user32.SetProcessDPIAware()
 
 security = ctk.CTk()
 security.title('Sistema de Login')
@@ -55,10 +53,22 @@ result_login = ctk.CTkLabel(
 )
 result_login.pack(pady=10)
 
+def executar_login():
+    """Verifica login antes de abrir a interface principal"""
+    usuario = campo_usuario.get()
+    senha = campo_senha.get()
+    
+    if valid_login(usuario, senha):
+        result_login.configure(text='Login Concluído \n Bem-Vindo :D', text_color='green')
+        safe_destroy(security)
+        open_interface_principal()
+    else:
+        result_login.configure(text='Login Inválido', text_color='red')
+
 button_login = ctk.CTkButton(
     security,
     text='Login',
-    command=lambda: valid_login(campo_usuario, campo_senha, result_login, security, open_interface_principal),
+    command=executar_login,
     font=ctk.CTkFont(size=16, family="Roboto Bold"),
     fg_color="#7289DA",
     text_color="white"
@@ -67,7 +77,7 @@ button_login.pack(pady=10)
 
 label_guia_fecha_security = ctk.CTkLabel(
     security,
-    text='Aperte "Q" para sair',
+    text='Aperte \"Q\" para sair',
     text_color='white',
     font=ctk.CTkFont(size=14, family="Roboto Bold")
 )
@@ -76,4 +86,4 @@ label_guia_fecha_security.pack(pady=10)
 security.bind("<q>", lambda event: safe_destroy(security)) 
 security.protocol("WM_DELETE_WINDOW", lambda: safe_destroy(security))
 
-security.mainloop()                        
+security.mainloop()
