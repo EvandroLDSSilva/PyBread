@@ -1,7 +1,7 @@
 import customtkinter as ctk
 from global_resources import *
 from interface_vendas_mod import open_interface_vendas
-from interface_cPlanilhas import open_interface_cPlanilhas
+from interface_cadrastos import open_interface_cadastros
 import ctypes
 from datetime import datetime
 from PIL import Image
@@ -51,7 +51,7 @@ def open_interface_principal():
     btm_f_cPlanilha = ctk.CTkButton(
         tela_principal,
         text='Criação\nPlanilhas',
-        command=open_interface_cPlanilhas,
+        command=open_interface_cadastros,
         width=100,
         height=100,
         font=ctk.CTkFont(size=18, family="Arial Bold"),

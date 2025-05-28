@@ -36,6 +36,14 @@ class CupomVenda(Base):
 
 Base.metadata.create_all(bind=db)
 
+# class cliente(Base):
+
+#     __tablename__ = "clientes"
+    
+
+
+
+
 # CRUD - Exemplo de uso
 
 # Criar um produto
