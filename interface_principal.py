@@ -1,5 +1,4 @@
 import customtkinter as ctk
-from AIChatbox.interface_ia import open_intfc_ia  # IA BaggeteBot restaurada!
 from global_resources import *
 from interface_vendas_mod import open_interface_vendas
 from interface_cPlanilhas import open_interface_cPlanilhas
@@ -64,7 +63,7 @@ def open_interface_principal():
     btm_open_ia = ctk.CTkButton(
         tela_principal,
         text='IA\nBaggeteBot',
-        command=open_intfc_ia,  # IA BaggeteBot restaurada!
+        command=print('trabalhando nisso'),  # IA BaggeteBot restaurada!
         width=100,
         height=100,
         font=ctk.CTkFont(size=18, family="Arial Bold"),
