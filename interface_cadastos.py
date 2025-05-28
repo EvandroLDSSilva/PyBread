@@ -10,13 +10,13 @@ def open_interface_cadastros():
     tela_cadastros.geometry(resolucao_tela_monitor())
     tela_cadastros.configure(fg_color= cor_principal()) 
 
-    label_bvnd_cadrastos = ctk.CTkLabel(
+    label_bvnd_cadastos = ctk.CTkLabel(
         tela_cadastros,
-        text='Bem-vindo à Criação de Planilhas! 😃',
+        text='Bem-vindo à area de cadastros! 😃',
         text_color='black',
         font=ctk.CTkFont(size=22, family="Arial Bold")
     )
-    label_bvnd_cadrastos.pack(relx= 0.5, rely= 0.05)
+    label_bvnd_cadastos.pack(relx= 0.5, rely= 0.05)
 
     tela_cadastros.protocol("WM_DELETE_WINDOW", lambda: safe_destroy(tela_cadastros))
     tela_cadastros.bind("<q>", lambda event: safe_destroy(tela_cadastros))
