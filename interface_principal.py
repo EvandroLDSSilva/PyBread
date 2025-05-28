@@ -20,8 +20,9 @@ def open_interface_principal():
     tela_principal.geometry(resolucao_tela_monitor())
     tela_principal.configure(fg_color=cor_principal()) 
     
-    global img_carrinho_compras  # Armazena a referência globalmente
-    img_carrinho_compras = ctk.CTkImage(light_image=Image.open("C:\\PyBread\\imagem_carrinho_compras.png"), size=(95, 95))
+    img_carrinho_compras = ctk.CTkImage(light_image=Image.open('PyBread/imagem_carrinho_compras.png'),
+        dark_image=Image.open('PyBread/imagem_carrinho_compras.png',),
+        size=(95, 95))
 
 
     label_boas_vindas = ctk.CTkLabel(
@@ -35,7 +36,7 @@ def open_interface_principal():
     btm_f_area_vendas = ctk.CTkButton(
         tela_principal,
         image=img_carrinho_compras,
-        text='Área\nVendas',
+        text='',
         command=open_interface_vendas,
         width=100,
         height=100,
