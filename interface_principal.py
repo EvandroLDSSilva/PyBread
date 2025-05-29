@@ -1,7 +1,8 @@
 import customtkinter as ctk
-from global_resources import *
+from global_resources import *  # Ex.: carregar_data(), cor_principal(), cor_secundaria(), etc.
 from interface_vendas_mod import open_interface_vendas
 from interface_cadastos import open_interface_cadastros
+from interface_receita import open_interface_receita  # NOVO! Função para abrir o relatório de receita
 import ctypes
 from datetime import datetime
 from PIL import Image
@@ -13,34 +14,74 @@ def carregar_data():
     agora = datetime.now()
     return agora.strftime("%d/%m/%Y %H:%M:%S")
 
+def resolucao_tela_monitor():
+    """Retorna a resolução da tela como tupla (largura, altura)."""
+    tela_monitor = ctk.CTk()
+    largura_monitor = tela_monitor.winfo_screenwidth() - 100
+    altura_monitor = tela_monitor.winfo_screenheight() - 300
+    tela_monitor.destroy()
+    return (largura_monitor, altura_monitor)  # Retorna tupla corretamente!
+
 def open_interface_principal():
     tela_principal = ctk.CTk()
-    tela_principal.title('Bem-vindo!')
-    tela_principal.geometry(resolucao_tela_monitor())
+    tela_principal.title('PyPão - Tela inicial')
+    largura, altura = resolucao_tela_monitor()  # Obtém resolução correta
+    tela_principal.geometry(f"{largura}x{altura}+0+0")  
     tela_principal.configure(fg_color=cor_principal()) 
-    
-    caminho_imagem = "C:\\PyBread\\blue_area_vendas_car.png"
-    img_carrinho_compras = ctk.CTkImage(
-        light_image=Image.open(caminho_imagem),
-        dark_image=Image.open(caminho_imagem),
+
+    # Carregar imagem de fundo com resolução ajustada
+    img_fundo = Image.open("C:\\PyBread\\fundo_azul_branco.jpg")
+    img_fundo = img_fundo.resize((largura, altura))  # Ajusta ao tamanho da tela!
+    bg_image = ctk.CTkImage(light_image=img_fundo, dark_image=img_fundo, size=(largura, altura))
+
+    # Criando o label para a imagem de fundo
+    label_fundo = ctk.CTkLabel(tela_principal, image=bg_image, text="")
+    label_fundo.pack(fill="both", expand=True)  # Garante que preencha toda a tela!
+    label_fundo.lower()  # Agora a imagem de fundo fica atrás dos botões!
+
+    # Carregar imagens para botões
+
+    img_papel_cadastro = ctk.CTkImage(
+        light_image=Image.open("C:\\PyBread\\blue_area_cadastros_paper.png"),
+        dark_image=Image.open("C:\\PyBread\\blue_area_cadastros_paper.png"),
         size=(150, 150)
     )
 
-    label_boas_vindas = ctk.CTkLabel(
+    img_carrinho_compras = ctk.CTkImage(
+        light_image=Image.open("C:\\PyBread\\blue_area_vendas_car.png"),
+        dark_image=Image.open("C:\\PyBread\\blue_area_vendas_car.png"),
+        size=(150, 150)
+    )
+    
+    img_receitas = ctk.CTkImage(
+        light_image=Image.open("C:\\PyBread\\blue_area_receitas.png"),
+        dark_image=Image.open("C:\\PyBread\\blue_area_receitas.png"),
+        size=(150, 150)
+    )
+
+    img_bvnd_pypao = ctk.CTkImage(
+        light_image=Image.open("C:\\PyBread\\bvnd_PyPao.png"),
+        dark_image=Image.open("C:\\PyBread\\bvnd_PyPao.png"),
+        size=(320, 180)
+    )
+
+    label_img_bvnd_pypao = ctk.CTkLabel(
         tela_principal,
-        text='Bem-vindo à tela principal!',
-        text_color='white',
+        image=img_bvnd_pypao,
+        text='',
+        text_color='Black',
+        fg_color="transparent",  
         font=ctk.CTkFont(size=22, family="Arial Bold")
     )
-    label_boas_vindas.pack(padx=50, pady=20)
+    label_img_bvnd_pypao.place(relx=0.85, rely=0.05)
 
     btm_f_area_vendas = ctk.CTkButton(
         tela_principal,
         image=img_carrinho_compras,
         text='',
         command=open_interface_vendas,
-        width=150,
-        height=150,
+        width=200,
+        height=200,
         font=ctk.CTkFont(size=18, family="Arial Bold"),
         fg_color="transparent",  
         hover_color=cor_principal(),  
@@ -48,35 +89,52 @@ def open_interface_principal():
     )
     btm_f_area_vendas.place(relx=0.05, rely=0.05)
 
-    btm_f_cPlanilha = ctk.CTkButton(
+    btm_f_cadastros = ctk.CTkButton(
         tela_principal,
-        text='Area\nCadastros',
+        image=img_papel_cadastro,
+        text='',
         command=open_interface_cadastros,
-        width=100,
-        height=100,
+        width=200,
+        height=200,
         font=ctk.CTkFont(size=18, family="Arial Bold"),
-        fg_color=cor_secundaria(),
+        fg_color="transparent",  
+        hover_color=cor_principal(),
         text_color="white"
     )
-    btm_f_cPlanilha.place(relx=0.55, rely=0.30)
+    btm_f_cadastros.place(relx=0.15, rely=0.05)
+
+    # NOVO: Botão para abrir a interface de receita
+    btm_f_receita = ctk.CTkButton(
+        tela_principal,
+        image= img_receitas,# Se você tiver uma imagem para o botão; caso contrário, remova o parâmetro image e use somente texto.
+        text='Receita',  
+        command=open_interface_receita,
+        width=200,
+        height=200,
+        font=ctk.CTkFont(size=18, family="Arial Bold"),
+        fg_color="transparent",  
+        hover_color=cor_principal(),
+        text_color="white"
+    )
+    btm_f_receita.place(relx=0.25, rely=0.05)
 
     btm_open_ia = ctk.CTkButton(
         tela_principal,
         text='IA\nBaggeteBot',
-        command=print('trabalhando nisso'),  # IA BaggeteBot restaurada!
+        command=lambda: print('trabalhando nisso'),  # Agora só executa ao clicar!
         width=100,
         height=100,
         font=ctk.CTkFont(size=18, family="Arial Bold"),
-        fg_color='#ff7b00',
+        fg_color=cor_terciaria(),
         text_color="white"
     )
-    btm_open_ia.place(relx=0.50, rely=0.50)
+    btm_open_ia.place(relx=0.90, rely=0.2)
 
     label_datahora_intf_principal = ctk.CTkLabel(
         tela_principal,
         text=carregar_data(),
         text_color='black',
-        font=ctk.CTkFont(size=15, family="Arial Bold"))
+        font=ctk.CTkFont(size=20, family="Arial Bold"))
     label_datahora_intf_principal.place(relx=0.10, rely=0.90)
 
     def atualizar_data():
@@ -91,6 +149,7 @@ def open_interface_principal():
         command=lambda: safe_destroy(tela_principal),
         width=80,
         height=40,
+        corner_radius=0,
         font=ctk.CTkFont(size=16, family="Arial Bold"),
         fg_color="red",
         text_color="white"
