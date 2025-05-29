@@ -25,21 +25,18 @@ def resolucao_tela_monitor():
 def open_interface_principal():
     tela_principal = ctk.CTk()
     tela_principal.title('PyPão - Tela inicial')
-    largura, altura = resolucao_tela_monitor()  # Obtém resolução correta
+    largura, altura = resolucao_tela_monitor() 
     tela_principal.geometry(f"{largura}x{altura}+0+0")  
     tela_principal.configure(fg_color=cor_principal()) 
 
-    # Carregar imagem de fundo com resolução ajustada
     img_fundo = Image.open("C:\\PyBread\\fundo_azul_branco.jpg")
-    img_fundo = img_fundo.resize((largura, altura))  # Ajusta ao tamanho da tela!
+    img_fundo = img_fundo.resize((largura, altura))
     bg_image = ctk.CTkImage(light_image=img_fundo, dark_image=img_fundo, size=(largura, altura))
 
     # Criando o label para a imagem de fundo
     label_fundo = ctk.CTkLabel(tela_principal, image=bg_image, text="")
-    label_fundo.pack(fill="both", expand=True)  # Garante que preencha toda a tela!
-    label_fundo.lower()  # Agora a imagem de fundo fica atrás dos botões!
-
-    # Carregar imagens para botões
+    label_fundo.pack(fill="both", expand=True)
+    label_fundo.lower()
 
     img_papel_cadastro = ctk.CTkImage(
         light_image=Image.open("C:\\PyBread\\blue_area_cadastros_paper.png"),
@@ -103,10 +100,9 @@ def open_interface_principal():
     )
     btm_f_cadastros.place(relx=0.15, rely=0.05)
 
-    # NOVO: Botão para abrir a interface de receita
     btm_f_receita = ctk.CTkButton(
         tela_principal,
-        image= img_receitas,# Se você tiver uma imagem para o botão; caso contrário, remova o parâmetro image e use somente texto.
+        image= img_receitas,
         text='Receita',  
         command=open_interface_receita,
         width=200,
@@ -121,7 +117,7 @@ def open_interface_principal():
     btm_open_ia = ctk.CTkButton(
         tela_principal,
         text='IA\nBaggeteBot',
-        command=lambda: print('trabalhando nisso'),  # Agora só executa ao clicar!
+        command=lambda: print('trabalhando nisso'),
         width=100,
         height=100,
         font=ctk.CTkFont(size=18, family="Arial Bold"),

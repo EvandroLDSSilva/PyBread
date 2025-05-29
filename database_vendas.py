@@ -1,9 +1,9 @@
 from sqlalchemy import create_engine, Column, Integer, String, Float, Text, DateTime
 from sqlalchemy.orm import sessionmaker, declarative_base
 from datetime import datetime
-from global_resources import *  # Certifique-se de que esse módulo está configurado corretamente
+from global_resources import *
 
-# Configuração do banco de dados usando o arquivo "db_database_vendas.db"
+
 db = create_engine("sqlite:///db_database_vendas.db")
 Session = sessionmaker(bind=db)
 session = Session()
@@ -34,7 +34,7 @@ class CupomVenda(Base):
     content_cupom = Column(Text, nullable=False)
     total_cupom = Column(Float, nullable=False)
     lucro_cupom = Column(Float, nullable=False)
-    # Aqui é onde a data/hora da venda será salva automaticamente
+
     data_venda = Column(DateTime, default=datetime.now, nullable=False)
 
 class cliente(Base):
@@ -45,7 +45,7 @@ class cliente(Base):
     cod_cliente = Column(Integer, unique=True, nullable=False)
     total_conta_cliente = Column(Float, nullable=False, default=0.0)
 
-# Cria as tabelas se elas ainda não existirem
+
 Base.metadata.create_all(bind=db)
 
 # --------------------------------------------------

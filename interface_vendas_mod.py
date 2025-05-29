@@ -1,9 +1,9 @@
 import customtkinter as ctk
 from decimal import Decimal, ROUND_UP
 from sqlalchemy.orm import sessionmaker
-from database_vendas import *  # CupomVenda, Produto, cliente, db, etc.
+from database_vendas import *
 from global_resources import *
-# Não usamos import de tela_vender aqui – a função será definida abaixo
+
 
 Session = sessionmaker(bind=db)
 session = Session()
@@ -24,7 +24,6 @@ def save_cupom_db(box_texto, total_label, campo_codebar, campo_quant, total_valo
         session.add(novo_cupom)
         session.commit()
         print("Cupom salvo no banco!")
-        # Reinicia a interface
         total_valor = Decimal('0.00')
         total_label.configure(text=f"Total: R$ {total_valor:.2f}".replace('.', ','))
         box_texto.configure(state="normal")
@@ -170,11 +169,11 @@ def open_interface_vendas():
             if not cliente_existente:
                 label_msg.configure(text="Cliente não encontrado!")
                 return
-            # Atualiza total da conta do cliente (acréscimo)
+            
             novo_total = cliente_existente.total_conta_cliente + float(total_valor)
             cliente_existente.total_conta_cliente = novo_total
             session.commit()
-            # Salva o cupom no banco (mesma função para crédito)
+
             save_cupom_db(box_texto, total_label, campo_codebar, campo_quant, total_valor, total_lucro)
             print("Venda no fiado finalizada!")
             janela_fiado.destroy()
@@ -188,12 +187,12 @@ def open_interface_vendas():
         btn_confirmar.pack(pady=10)
         janela_fiado.mainloop()
     
-    # Função para finalizar venda à vista (fluxo já existente)
+
     def finalizar_venda():
-        from tela_vender import open_tela_vender  # Se houver uma janela de finalização para a vista
+        from tela_vender import open_tela_vender
         open_tela_vender(total_valor, total_lucro, box_texto, campo_codebar, campo_quant, total_label)
     
-    # Botão "Receber à vista" (fluxo existente)
+
     btm_vender = ctk.CTkButton(
         intfc_vendas, 
         text='Receber à vista',
@@ -203,8 +202,7 @@ def open_interface_vendas():
         fg_color=cor_secundaria(), text_color="white"
     )
     btm_vender.place(relx=0.6, rely=0.30)
-    
-    # Novo botão "Finalizar Venda no Fiado" – posicionado à esquerda
+
     btm_venda_fiado = ctk.CTkButton(
         intfc_vendas,
         text='Finalizar Venda no Fiado',

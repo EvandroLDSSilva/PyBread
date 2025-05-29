@@ -1,23 +1,15 @@
 import customtkinter as ctk
 from decimal import Decimal, ROUND_UP
-from global_resources import *                  # Ex.: carregar_data(), cor_principal(), cor_secundaria(), etc.
-from database_vendas import *                   # Ex.: Produto, CupomVenda, cliente, db, etc.
+from global_resources import *    
+from database_vendas import *           
 from sqlalchemy.orm import sessionmaker
-import tkinter.messagebox as messagebox         # Para exibir mensagens, se necessário
+import tkinter.messagebox as messagebox        
 
 Session = sessionmaker(bind=db)
 session = Session()
 
 def open_tela_vender(total_valor, total_lucro, box_texto, campo_codebar, campo_quant, total_label):
-    """
-    Abre a janela de finalização da venda.
-    - total_valor e total_lucro (do tipo Decimal) são os valores acumulados da venda.
-    - box_texto, campo_codebar, campo_quant e total_label vêm da interface de vendas.
-    
-    O botão "Finalizar Venda" só aparece quando o usuário pressiona Enter no campo
-    "Dinheiro recebido" e o valor informado é igual ou superior a total_valor.
-    Em caso de valor insuficiente, um rótulo de erro é mostrado na mesma janela.
-    """
+
     tela_vndr = ctk.CTk()
     tela_vndr.title('Tela de Vendas')
     tela_vndr.geometry("500x600")
@@ -49,8 +41,7 @@ def open_tela_vender(total_valor, total_lucro, box_texto, campo_codebar, campo_q
         font=ctk.CTkFont(size=22, family="Arial Bold")
     )
     label_troco_vender.place(relx=0.5, rely=0.50, anchor="center")
-    
-    # Label de erro para informar valor insuficiente ou inválido
+
     label_erro = ctk.CTkLabel(
         tela_vndr,
         text="",
@@ -59,7 +50,6 @@ def open_tela_vender(total_valor, total_lucro, box_texto, campo_codebar, campo_q
     )
     label_erro.place(relx=0.5, rely=0.57, anchor="center")
     
-    # Cria o botão de finalizar mas o oculta inicialmente
     btm_finalizar_venda = ctk.CTkButton(
         tela_vndr,
         text='Finalizar Venda',
@@ -70,7 +60,7 @@ def open_tela_vender(total_valor, total_lucro, box_texto, campo_codebar, campo_q
         fg_color=cor_secundaria(),
         text_color="white"
     )
-    btm_finalizar_venda.place_forget()  # Inicialmente oculto
+    btm_finalizar_venda.place_forget()
 
     def atualizar_troco(event=None):
         """Calcula e atualiza o troco e decide se exibe o botão de finalizar."""
@@ -79,7 +69,7 @@ def open_tela_vender(total_valor, total_lucro, box_texto, campo_codebar, campo_q
             troco = dinheiro_recebido - total_valor
             label_troco_vender.configure(text=f"Troco: R$ {troco:.2f}".replace('.', ','))
             if dinheiro_recebido >= total_valor:
-                label_erro.configure(text="")  # Remove mensagem de erro, se houver.
+                label_erro.configure(text="")
                 btm_finalizar_venda.place(relx=0.5, rely=0.70, anchor="center")
             else:
                 label_erro.configure(text="Valor recebido insuficiente!")
@@ -103,9 +93,8 @@ def open_tela_vender(total_valor, total_lucro, box_texto, campo_codebar, campo_q
             label_erro.configure(text="Valor recebido insuficiente!")
             return
 
-        # Se o valor for suficiente, prossegue com a finalização da venda.
         print("Finalizando Venda!")
-        from interface_vendas_mod import save_cupom_db  # Certifique-se de que essa função esteja corretamente implementada.
+        from interface_vendas_mod import save_cupom_db
         save_cupom_db(box_texto, total_label, campo_codebar, campo_quant, total_valor, total_lucro)
         tela_vndr.destroy()
 

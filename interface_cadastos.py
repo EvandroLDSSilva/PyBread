@@ -11,10 +11,7 @@ session = Session()
 # ======================== FUNÇÕES DE PRODUTOS ========================
 
 def salvar_produto(cod_entry, nome_entry, preco_venda_entry, preco_compra_entry, status_label):
-    """
-    Insere um novo produto ou atualiza um existente com base no código informado.
-    Se o código já existir, atualiza os dados; senão, insere um novo.
-    """
+
     try:
         cod = int(cod_entry.get().strip())
     except ValueError:
@@ -48,10 +45,7 @@ def salvar_produto(cod_entry, nome_entry, preco_venda_entry, preco_compra_entry,
         status_label.configure(text="Produto cadastrado com sucesso!", text_color="green")
 
 def buscar_produto(cod_entry, nome_entry, preco_venda_entry, preco_compra_entry, status_label):
-    """
-    Pesquisa um produto pelo código informado; se encontrado, preenche os campos com os dados;
-    senão, limpa os campos para novo cadastro.
-    """
+
     try:
         cod = int(cod_entry.get().strip())
     except ValueError:
@@ -73,9 +67,7 @@ def buscar_produto(cod_entry, nome_entry, preco_venda_entry, preco_compra_entry,
         status_label.configure(text="Produto não encontrado.", text_color="orange")
 
 def deletar_produto(cod_entry, nome_entry, preco_venda_entry, preco_compra_entry, status_label):
-    """
-    Exibe uma confirmação para exclusão; se confirmado, deleta o produto com o código informado e limpa os campos.
-    """
+
     try:
         cod = int(cod_entry.get().strip())
     except ValueError:
@@ -100,10 +92,7 @@ def deletar_produto(cod_entry, nome_entry, preco_venda_entry, preco_compra_entry
 # ======================== FUNÇÕES DE CLIENTES ========================
 
 def salvar_cliente(nome_entry, cod_entry, status_label):
-    """
-    Insere ou atualiza um cliente. Se o código informado já existir, atualiza o nome;
-    senão, insere um novo cliente com total_conta_cliente iniciado em 0.0.
-    """
+
     nome = nome_entry.get().strip()
     try:
         cod = int(cod_entry.get().strip())
@@ -127,9 +116,7 @@ def salvar_cliente(nome_entry, cod_entry, status_label):
         status_label.configure(text="Cliente cadastrado com sucesso!", text_color="green")
 
 def deletar_cliente(nome_entry, cod_entry, status_label):
-    """
-    Exibe uma confirmação para exclusão e, se afirmada, deleta o cliente correspondente ao código informado e limpa os campos.
-    """
+
     try:
         cod = int(cod_entry.get().strip())
     except ValueError:
@@ -150,10 +137,7 @@ def deletar_cliente(nome_entry, cod_entry, status_label):
         status_label.configure(text="Cliente não encontrado!", text_color="red")
 
 def buscar_cliente(nome_entry, cod_entry, status_label, entry_receber, btn_receber_pagamento):
-    """
-    Pesquisa o cliente com base nos campos de nome e código. Se encontrado, exibe o total da conta.
-    Se o total for maior que zero, mostra os widgets para receber pagamento.
-    """
+
     nome = nome_entry.get().strip()
     try:
         cod = int(cod_entry.get().strip())
@@ -176,10 +160,7 @@ def buscar_cliente(nome_entry, cod_entry, status_label, entry_receber, btn_receb
         btn_receber_pagamento.pack_forget()
 
 def receber_pagamento_cliente(cl, status_label, entry_receber):
-    """
-    Recebe um valor para pagamento: se o valor recebido for maior ou igual ao total da conta,
-    zera o total e mostra o troco; caso contrário, atualiza o total para total - valor recebido.
-    """
+
     try:
         valor = float(entry_receber.get().strip().replace(',', '.'))
     except ValueError:
@@ -199,14 +180,7 @@ def receber_pagamento_cliente(cl, status_label, entry_receber):
 # ======================== INTERFACE DE CADASTROS ========================
 
 def open_interface_cadastros():
-    """
-    Abre a interface de cadastros dividida em duas áreas:
-      • Lado esquerdo: Cadastro de Produtos (campos para código, nome, preço de venda, preço de compra;
-        botões para salvar, buscar e deletar).
-      • Lado direito: Cadastro de Clientes (campos para nome, código; botões para buscar, salvar e deletar;
-        se for buscado e houver dívida, exibe campo e botão para receber pagamento).
-    A interface só será aberta quando esta função for chamada.
-    """
+
     app = ctk.CTk()
     app.title("Cadastro de Produtos e Clientes")
     app.geometry("300, 500,+0+0")
