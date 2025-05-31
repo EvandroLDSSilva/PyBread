@@ -45,6 +45,12 @@ def open_interface_principal():
         size=(150, 150)
     )
 
+    img_baggete_bot_logo = ctk.CTkImage(
+        light_image=Image.open("C:\\PyBread\\bagguete_bot_logo.png"),
+        dark_image=Image.open("C:\\PyBread\\bagguete_bot_logo.png"),
+        size=(200, 200)
+    )
+
     img_carrinho_compras = ctk.CTkImage(
         light_image=Image.open("C:\\PyBread\\blue_area_vendas_car.png"),
         dark_image=Image.open("C:\\PyBread\\blue_area_vendas_car.png"),
@@ -117,15 +123,17 @@ def open_interface_principal():
 
     btm_open_ia = ctk.CTkButton(
         tela_principal,
-        text='IA\nBaggeteBot',
+        image= img_baggete_bot_logo,
+        text='',
         command=lambda: print('trabalhando nisso'),
-        width=100,
-        height=100,
+        width=200,
+        height=200,
         font=ctk.CTkFont(size=18, family="Arial Bold"),
-        fg_color=cor_terciaria(),
+        fg_color="transparent",  
+        hover_color=cor_principal(),
         text_color="white"
     )
-    btm_open_ia.place(relx=0.85, rely=0.27)
+    btm_open_ia.place(relx=0.80, rely=0.27)
 
     label_datahora_intf_principal = ctk.CTkLabel(
         tela_principal,
