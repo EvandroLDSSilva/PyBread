@@ -17,8 +17,9 @@ def carregar_data():
 def resolucao_tela_monitor():
     """Retorna a resolução da tela como tupla (largura, altura)."""
     tela_monitor = ctk.CTk()
-    largura_monitor = tela_monitor.winfo_screenwidth() - 100
-    altura_monitor = tela_monitor.winfo_screenheight() - 300
+    largura_monitor = tela_monitor.winfo_screenwidth() - 0
+
+    altura_monitor = tela_monitor.winfo_screenheight() - 75
     tela_monitor.destroy()
     return (largura_monitor, altura_monitor)  # Retorna tupla corretamente!
 
@@ -70,7 +71,7 @@ def open_interface_principal():
         fg_color="transparent",  
         font=ctk.CTkFont(size=22, family="Arial Bold")
     )
-    label_img_bvnd_pypao.place(relx=0.85, rely=0.05)
+    label_img_bvnd_pypao.place(relx=0.75, rely=0.05)
 
     btm_f_area_vendas = ctk.CTkButton(
         tela_principal,
@@ -98,7 +99,7 @@ def open_interface_principal():
         hover_color=cor_principal(),
         text_color="white"
     )
-    btm_f_cadastros.place(relx=0.15, rely=0.05)
+    btm_f_cadastros.place(relx=0.20, rely=0.05)
 
     btm_f_receita = ctk.CTkButton(
         tela_principal,
@@ -112,7 +113,7 @@ def open_interface_principal():
         hover_color=cor_principal(),
         text_color="white"
     )
-    btm_f_receita.place(relx=0.25, rely=0.05)
+    btm_f_receita.place(relx=0.35, rely=0.05)
 
     btm_open_ia = ctk.CTkButton(
         tela_principal,
@@ -124,7 +125,7 @@ def open_interface_principal():
         fg_color=cor_terciaria(),
         text_color="white"
     )
-    btm_open_ia.place(relx=0.90, rely=0.2)
+    btm_open_ia.place(relx=0.85, rely=0.27)
 
     label_datahora_intf_principal = ctk.CTkLabel(
         tela_principal,

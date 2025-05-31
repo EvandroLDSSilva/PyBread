@@ -34,17 +34,14 @@ class CupomVenda(Base):
     content_cupom = Column(Text, nullable=False)
     total_cupom = Column(Float, nullable=False)
     lucro_cupom = Column(Float, nullable=False)
-
     data_venda = Column(DateTime, default=datetime.now, nullable=False)
 
 class cliente(Base):
     __tablename__ = "clientes"
-
     id = Column(Integer, primary_key=True, autoincrement=True)
     nome_cliente = Column(String, nullable=False)
     cod_cliente = Column(Integer, unique=True, nullable=False)
     total_conta_cliente = Column(Float, nullable=False, default=0.0)
-
 
 Base.metadata.create_all(bind=db)
 
