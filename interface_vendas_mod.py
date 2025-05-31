@@ -3,6 +3,7 @@ from decimal import Decimal, ROUND_UP
 from sqlalchemy.orm import sessionmaker
 from database_vendas import *
 from global_resources import *
+from AIChatbox.nucleos_ia import *
 
 
 Session = sessionmaker(bind=db)
@@ -165,7 +166,7 @@ def open_interface_vendas():
             if not nome or not codigo.isdigit():
                 label_msg.configure(text="Preencha nome e código corretamente!")
                 return
-            cliente_existente = session.query(cliente).filter_by(nome_cliente=nome, cod_cliente=int(codigo)).first()
+            cliente_existente = session.query(Cliente).filter_by(nome_cliente=nome, cod_cliente=int(codigo)).first()
             if not cliente_existente:
                 label_msg.configure(text="Cliente não encontrado!")
                 return

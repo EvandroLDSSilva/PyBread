@@ -43,7 +43,7 @@ def safe_destroy(widget):
 usuarios_validos = {
     'jorge': '123456',
     'adm': '2335',
-    '': ''  
+    'Evandro': '1'
 }
 
 def valid_login(usuario, senha):

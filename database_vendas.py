@@ -1,15 +1,16 @@
 from sqlalchemy import create_engine, Column, Integer, String, Float, Text, DateTime
 from sqlalchemy.orm import sessionmaker, declarative_base
 from datetime import datetime
-from global_resources import *
 
+# Conexão com o banco de dados SQLite
+db = create_engine("sqlite:///db_database_vendas.db", echo=True)
 
-db = create_engine("sqlite:///db_database_vendas.db")
-Session = sessionmaker(bind=db)
-session = Session()
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=db)
+session = SessionLocal()
 
 Base = declarative_base()
 
+# Definição das tabelas
 class Produto(Base):
     __tablename__ = "produtos"
 
@@ -36,8 +37,9 @@ class CupomVenda(Base):
     lucro_cupom = Column(Float, nullable=False)
     data_venda = Column(DateTime, default=datetime.now, nullable=False)
 
-class cliente(Base):
+class Cliente(Base):
     __tablename__ = "clientes"
+
     id = Column(Integer, primary_key=True, autoincrement=True)
     nome_cliente = Column(String, nullable=False)
     cod_cliente = Column(Integer, unique=True, nullable=False)
@@ -45,30 +47,18 @@ class cliente(Base):
 
 Base.metadata.create_all(bind=db)
 
-# --------------------------------------------------
-# Exemplos de operações CRUD (comentados):
-#
-# Para salvar um novo cupom, por exemplo:
-#
-#   novo_cupom = CupomVenda(
-#       content_cupom="Conteúdo da nota de venda...",
-#       total_cupom=150.00,
-#       lucro_cupom=30.00
-#   )
-#   session.add(novo_cupom)
-#   session.commit()
-#
-# Nesse caso, o campo data_venda será preenchido automaticamente com datetime.now().
-#
-# Outros exemplos:
-#
-#   produtos = session.query(Produto).all()
-#   cliente_existente = session.query(cliente).filter_by(nome_cliente="João").first()
-#
-#   # Para atualizar
-#   cliente_existente.total_conta_cliente += 150.00
-#   session.commit()
-#
-#   # Para deletar
-#   session.delete(cliente_existente)
-#   session.commit()
+# Funções para buscar dados no banco
+def buscar_todos_clientes():
+    return session.query(Cliente).all()
+
+def buscar_cliente_por_nome(nome):
+    return session.query(Cliente).filter(Cliente.nome_cliente.ilike(f"%{nome}%")).first()
+
+def buscar_todos_produtos():
+    return session.query(Produto).all()
+
+def buscar_produto_por_nome(nome):
+    return session.query(Produto).filter(Produto.nome_produto.ilike(f"%{nome}%")).first()
+
+def buscar_historico_vendas():
+    return session.query(CupomVenda).order_by(CupomVenda.data_venda.desc()).limit(10).all()

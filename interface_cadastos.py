@@ -1,7 +1,7 @@
 import customtkinter as ctk
 from global_resources import resolucao_tela_monitor, cor_principal, cor_secundaria
 from sqlalchemy.orm import sessionmaker
-from database_vendas import Produto, cliente, db
+from database_vendas import Produto, Cliente, db
 import tkinter.messagebox as messagebox
 
 # Cria a sessão com o banco de dados (usando "db_database_vendas.db")
@@ -104,13 +104,13 @@ def salvar_cliente(nome_entry, cod_entry, status_label):
         status_label.configure(text="Informe o nome do cliente!", text_color="red")
         return
 
-    cliente_existente = session.query(cliente).filter_by(cod_cliente=cod).first()
+    cliente_existente = session.query(Cliente).filter_by(cod_cliente=cod).first()
     if cliente_existente:
         cliente_existente.nome_cliente = nome
         session.commit()
         status_label.configure(text="Cliente atualizado com sucesso!", text_color="green")
     else:
-        novo_cliente = cliente(nome_cliente=nome, cod_cliente=cod, total_conta_cliente=0.0)
+        novo_cliente = Cliente(nome_cliente=nome, cod_cliente=cod, total_conta_cliente=0.0)
         session.add(novo_cliente)
         session.commit()
         status_label.configure(text="Cliente cadastrado com sucesso!", text_color="green")
@@ -122,7 +122,7 @@ def deletar_cliente(nome_entry, cod_entry, status_label):
     except ValueError:
         status_label.configure(text="Código do cliente inválido!", text_color="red")
         return
-    cliente_existente = session.query(cliente).filter_by(cod_cliente=cod).first()
+    cliente_existente = session.query(Cliente).filter_by(cod_cliente=cod).first()
     if cliente_existente:
         confirm = messagebox.askyesno("Confirmar Exclusão", "Tem certeza que deseja deletar este cliente?")
         if confirm:
@@ -144,7 +144,7 @@ def buscar_cliente(nome_entry, cod_entry, status_label, entry_receber, btn_receb
     except ValueError:
         status_label.configure(text="Código inválido!", text_color="red")
         return
-    cl = session.query(cliente).filter_by(nome_cliente=nome, cod_cliente=cod).first()
+    cl = session.query(Cliente).filter_by(nome_cliente=nome, cod_cliente=cod).first()
     if cl:
         status_label.configure(text=f"💰 Total da Conta: R$ {cl.total_conta_cliente:.2f}", text_color="green")
         if cl.total_conta_cliente > 0:
